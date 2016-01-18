@@ -15,13 +15,13 @@ public class Path : MonoBehaviour {
 	GameObject tempPathTile;
 
 	private int NumOfTiles { get; set; }
+	[SerializeField]
 	private List<GameObject> pathTileList;
 
 	private int xStartPos = -5;
 	private int yStartPos = 0;
 
 	// the distance between the path tiles 
-
 	private int distBetweenPathTiles = 1;
 
 
@@ -49,6 +49,9 @@ public class Path : MonoBehaviour {
 
 			// make the path tile a child of Path
 			tempPathTile.transform.SetParent (gameObject.transform, false);
+
+			// add the pathTile to the list
+			pathTileList.Add(tempPathTile);
 
 		} // for
 
