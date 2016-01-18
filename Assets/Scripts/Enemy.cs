@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour {
 
 	/*=========================== Awake() ===========================*/
 
-	void Awake(){
+	void Awake() {
 
 
 
