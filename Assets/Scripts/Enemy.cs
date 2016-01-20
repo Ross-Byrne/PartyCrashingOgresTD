@@ -10,6 +10,10 @@ public class Enemy : MonoBehaviour {
 	private int Health { get; set; }
 	private float Speed { get; set; }
 
+	GameObject objectHit;
+
+	//public PolygonCollider2D pCollider;
+
 
 	/*=========================== Methods ===========================*/
 
@@ -32,7 +36,26 @@ public class Enemy : MonoBehaviour {
 		// move enemy up
 		MoveRight();
 
+
 	} // Update()
+
+
+		
+	void OnCollisionEnter2D(Collision2D coll){
+
+		//objectHit = coll.collider.gameObject;
+
+		//Debug.Log(objectHit.GetComponent<PathTile> ().PathType);
+
+		if (coll.gameObject.tag == "PathTile") {
+
+			print ("Collision");
+		}
+		Debug.Log ("Collision");
+
+	}
+
+
 
 
 	/*=========================== MoveUp() ===========================*/
@@ -74,7 +97,7 @@ public class Enemy : MonoBehaviour {
 	private void MoveRight(){
 
 		// move the enemy right
-		gameObject.transform.position = new Vector3 (gameObject.transform.position.x + (this.Speed * Time.deltaTime), gameObject.transform.position.y, 0f);
+		transform.Translate (new Vector3 (this.Speed * Time.deltaTime, 0f, 0f));
 
 	} // MoveRight()
 
