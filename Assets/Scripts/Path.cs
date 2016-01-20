@@ -6,13 +6,9 @@ public class Path : MonoBehaviour {
 
 	/*=========================== Member Variables ===========================*/
 
-	// Prefabs
-
-	public GameObject pathTilePrefab;
-
 	// Variables
 
-	GameObject tempPathTile;
+	//GameObject tempPathTile;
 
 	private int NumOfTiles { get; set; }
 	[SerializeField]
@@ -24,6 +20,24 @@ public class Path : MonoBehaviour {
 	// the distance between the path tiles 
 	private int distBetweenPathTiles = 1;
 
+	// keeping track of starting and ending points on path
+	[SerializeField]
+	private GameObject pathStart;
+	[SerializeField]
+	private GameObject pathFinish;
+
+	public GameObject PathStart{
+
+		get {  return pathStart; }
+		set { pathStart = value; }
+	}
+
+	public GameObject PathFinish{
+
+		get {  return pathFinish; }
+		set { pathFinish = value; }
+	}
+
 
 	/*=========================== Methods ===========================*/
 
@@ -32,7 +46,7 @@ public class Path : MonoBehaviour {
 	// initialise
 	void Awake () {
 
-		// set number of path tiles to 10;
+	/*	// set number of path tiles to 10;
 		NumOfTiles = 10;
 	
 		// initialise the pathTileList
@@ -54,7 +68,7 @@ public class Path : MonoBehaviour {
 			pathTileList.Add(tempPathTile);
 
 		} // for
-
+		*/
 
 	} // Awake()
 
