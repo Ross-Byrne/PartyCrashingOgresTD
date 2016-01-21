@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour {
 
 	GameObject objectHit;
 
+	private string walkingDirection = "";
+
 	//public PolygonCollider2D pCollider;
 
 
@@ -33,28 +35,56 @@ public class Enemy : MonoBehaviour {
 
 	void Update(){
 
-		// move enemy up
-		MoveRight();
+		// make the enemy walk
+		switch (walkingDirection) {
+		case "Up": // if tile direction is up
+
+			// move the enemy up
+			MoveUp ();
+			break;
+		case "Down": // if tile direction is Down
+			
+			// move the enemy down
+			MoveDown ();
+			break;
+		case "Left": // if tile direction is Left
+
+			// move the enemy Left
+			MoveLeft ();
+			break;
+		case "Right": // if tile direction is Right
+
+			// move the enemy right
+			MoveRight ();
+			break;
+		default:
+			
+			Debug.Log ("Error, wrong path type");
+			break;
+		} // switch
 
 
 	} // Update()
-
-
 		
-	void OnCollisionEnter2D(Collision2D coll){
 
-		//objectHit = coll.collider.gameObject;
+	/*=========================== OnTriggerEnter2D() ===========================*/
 
-		//Debug.Log(objectHit.GetComponent<PathTile> ().PathType);
+	// runs when a collision trigger is triggered, when an object enters collision with another object
+	void OnTriggerEnter2D(Collider2D other){
 
-		if (coll.gameObject.tag == "PathTile") {
+		// check if the triggered collision is with A path tile
+		if (other.tag == "PathTile") {
 
-			print ("Collision");
-		}
-		Debug.Log ("Collision");
+			// get the walking direction from the pathTile
+			walkingDirection = other.gameObject.GetComponent<PathTile> ().PathType;
 
-	}
+		} else { // if not on path tile
 
+			// cancel walking direction
+			walkingDirection = "";
+		} // if
+
+	} // OnTriggerEnter2D()
 
 
 
@@ -64,7 +94,7 @@ public class Enemy : MonoBehaviour {
 	private void MoveUp(){
 
 		// move the enemy up
-		gameObject.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y + (this.Speed * Time.deltaTime), 0f);
+		transform.Translate (new Vector3 (0f, (this.Speed * Time.deltaTime), 0f));
 
 	} // MoveUp()
 
@@ -75,7 +105,7 @@ public class Enemy : MonoBehaviour {
 	private void MoveDown(){
 
 		// move the enemy down
-		gameObject.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - (this.Speed * Time.deltaTime), 0f);
+		transform.Translate (new Vector3 (0f, (-this.Speed * Time.deltaTime), 0f));
 
 	} // MoveDown()
 
@@ -86,7 +116,7 @@ public class Enemy : MonoBehaviour {
 	private void MoveLeft(){
 
 		// move the enemy left
-		gameObject.transform.position = new Vector3 (gameObject.transform.position.x - (this.Speed * Time.deltaTime), gameObject.transform.position.y, 0f);
+		transform.Translate (new Vector3 ((-this.Speed * Time.deltaTime), 0f, 0f));
 
 	} // MoveLeft()
 
