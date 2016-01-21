@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	// GameObjects
 	GameObject pathLayout;
 
+	float enemySpawnerSpeed = 2;
 
 	/*=========================== Methods ===========================*/
 
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour {
 	void Start(){
 
 		// spawn an enemy every 10 secs
-		InvokeRepeating ("SpawnEnemy", 1f, 3f);
+		InvokeRepeating ("SpawnEnemy", 1f, enemySpawnerSpeed);
 
 	} // Start()
 
