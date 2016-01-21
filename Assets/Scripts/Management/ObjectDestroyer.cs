@@ -5,7 +5,9 @@ using System.Collections;
 
 public class ObjectDestroyer : MonoBehaviour {
 
-	private float destroyDelayTime = 2f;
+	/*=========================== Methods ===========================*/
+
+	/*=========================== OnTriggerEnter2D() ===========================*/
 
 	// runs when a collision trigger is triggered, when an object enters collision with another object
 	void OnTriggerEnter2D(Collider2D other){
