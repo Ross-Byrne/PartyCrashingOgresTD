@@ -8,14 +8,9 @@ public class Path : MonoBehaviour {
 
 	// Variables
 
-	//GameObject tempPathTile;
-
 	private int NumOfTiles { get; set; }
 	[SerializeField]
 	private List<GameObject> pathTileList;
-
-	private int xStartPos = -5;
-	private int yStartPos = 0;
 
 	// the distance between the path tiles 
 	private int distBetweenPathTiles = 1;

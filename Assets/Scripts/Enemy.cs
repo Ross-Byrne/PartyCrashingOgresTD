@@ -10,11 +10,7 @@ public class Enemy : MonoBehaviour {
 	private int Health { get; set; }
 	private float Speed { get; set; }
 
-	GameObject objectHit;
-
 	private string walkingDirection = "";
-
-	//public PolygonCollider2D pCollider;
 
 
 	/*=========================== Methods ===========================*/
@@ -59,7 +55,7 @@ public class Enemy : MonoBehaviour {
 			break;
 		default:
 			
-			Debug.Log ("Error, wrong path type");
+			Debug.Log ("Error, wrong path type: " + walkingDirection);
 			break;
 		} // switch
 
@@ -130,5 +126,6 @@ public class Enemy : MonoBehaviour {
 		transform.Translate (new Vector3 (this.Speed * Time.deltaTime, 0f, 0f));
 
 	} // MoveRight()
+
 
 } // class
