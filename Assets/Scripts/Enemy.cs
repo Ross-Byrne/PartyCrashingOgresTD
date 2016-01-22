@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour {
 	private float Speed { get; set; }
 
 	private string walkingDirection = "";
+	private bool isAtCenter = false;
+	private GameObject objCollidedWith = null;
 
 
 	/*=========================== Methods ===========================*/
@@ -31,33 +33,61 @@ public class Enemy : MonoBehaviour {
 
 	void Update(){
 
-		// make the enemy walk
-		switch (walkingDirection) {
-		case "Up": // if tile direction is up
+		// if the enemy is at the center of the tile, keep moving them in correct direction
+		if (isAtCenter) {
+			
+			// make the enemy walk
+			switch (walkingDirection) {
+			case "Up": // if tile direction is up
 
 			// move the enemy up
-			MoveUp ();
-			break;
-		case "Down": // if tile direction is Down
+				MoveUp ();
+				break;
+			case "Down": // if tile direction is Down
 			
 			// move the enemy down
-			MoveDown ();
-			break;
-		case "Left": // if tile direction is Left
+				MoveDown ();
+				break;
+			case "Left": // if tile direction is Left
 
 			// move the enemy Left
-			MoveLeft ();
-			break;
-		case "Right": // if tile direction is Right
+				MoveLeft ();
+				break;
+			case "Right": // if tile direction is Right
 
 			// move the enemy right
-			MoveRight ();
-			break;
-		default:
+				MoveRight ();
+				break;
+			default:
 			
-			Debug.Log ("Error, wrong path type: " + walkingDirection);
-			break;
-		} // switch
+				Debug.Log ("Error, wrong path type: " + walkingDirection);
+				break;
+
+			} // switch
+
+		} else { // if not at the center of tile
+
+			if(objCollidedWith != null) {
+				// move the enemy towards the center of the tile
+				gameObject.transform.position = Vector3.MoveTowards (gameObject.transform.position, objCollidedWith.transform.position, 0.8f * Time.deltaTime);
+
+				// check if the enemy is aprox at the center of the tile
+				if (Vector3.Distance(gameObject.transform.position, objCollidedWith.transform.position) < 0.001f) {
+
+					// set enemies position to center of the tile
+					gameObject.transform.position = objCollidedWith.transform.position;
+
+					// flag enemy as at the center
+					isAtCenter = true;
+
+					// set object collided with to null b/c finished
+					objCollidedWith = null;
+
+				} // if
+			} // if
+		} // if
+
+
 
 
 	} // Update()
@@ -70,6 +100,12 @@ public class Enemy : MonoBehaviour {
 
 		// check if the triggered collision is with A path tile
 		if (other.tag == "PathTile") {
+
+			// enemy is not at center of the tile
+			isAtCenter = false;
+
+			// get reference to object collided with
+			objCollidedWith = other.gameObject;
 
 			// get the walking direction from the pathTile
 			walkingDirection = other.gameObject.GetComponent<PathTile> ().PathType;
