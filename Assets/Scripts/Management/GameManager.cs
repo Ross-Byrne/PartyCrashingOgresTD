@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	// GameObjects
 	GameObject pathLayout;
 
-	float enemySpawnerSpeed = 2;
+	float enemySpawnerSpeed = 0.8f; // time to wait before next spawn
 
 	/*=========================== Methods ===========================*/
 

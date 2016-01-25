@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour {
 		// initialise variables
 
 		// set speed
-		Speed = 0.8f;
+		Speed = 1.6f;
 
 	} // Awake()
 
@@ -68,14 +68,15 @@ public class Enemy : MonoBehaviour {
 		} else { // if not at the center of tile
 
 			if(objCollidedWith != null) {
+				
 				// move the enemy towards the center of the tile
-				gameObject.transform.position = Vector3.MoveTowards (gameObject.transform.position, objCollidedWith.transform.position, 0.8f * Time.deltaTime);
+				transform.position = Vector3.MoveTowards (transform.position, objCollidedWith.transform.position, Speed * Time.deltaTime);
 
 				// check if the enemy is aprox at the center of the tile
 				if (Vector3.Distance(gameObject.transform.position, objCollidedWith.transform.position) < 0.001f) {
 
 					// set enemies position to center of the tile
-					gameObject.transform.position = objCollidedWith.transform.position;
+					transform.position = objCollidedWith.transform.position;
 
 					// flag enemy as at the center
 					isAtCenter = true;
@@ -110,10 +111,16 @@ public class Enemy : MonoBehaviour {
 			// get the walking direction from the pathTile
 			walkingDirection = other.gameObject.GetComponent<PathTile> ().PathType;
 
-		} else { // if not on path tile
+		} // if
 
-			// cancel walking direction
-			walkingDirection = "";
+		// if projectile
+		if (other.tag == "Projectile") {
+
+			// destroy the projectile
+			Destroy (other.gameObject);
+
+			Destroy (gameObject);
+
 		} // if
 
 	} // OnTriggerEnter2D()
