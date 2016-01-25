@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	/*=========================== Member Variables ===========================*/
+	/*=========================== Member Variables ===================================================*/
 
 	// Prefabs
 	public GameObject pathLayoutPrefab;
@@ -12,13 +12,17 @@ public class GameManager : MonoBehaviour {
 	// GameObjects
 	GameObject pathLayout;
 
-	float enemySpawnerSpeed = 0.8f; // time to wait before next spawn
+	float enemySpawnerSpeed; // time to wait before next spawn
 
-	/*=========================== Methods ===========================*/
 
-	/*=========================== Awake() ===========================*/
+	/*=========================== Methods ===================================================*/
+
+	/*=========================== Awake() ===================================================*/
 
 	void Awake(){
+
+		// Initialise Variables
+		enemySpawnerSpeed = 0.8f;
 
 		// instantiate the pathLayout
 		pathLayout = (GameObject)Instantiate (pathLayoutPrefab);
@@ -26,7 +30,7 @@ public class GameManager : MonoBehaviour {
 	} // Awake()
 
 
-	/*=========================== Update() ===========================*/
+	/*=========================== Update() ===================================================*/
 
 	void Start(){
 
@@ -36,7 +40,7 @@ public class GameManager : MonoBehaviour {
 	} // Start()
 
 
-	/*=========================== Update() ===========================*/
+	/*=========================== Update() ===================================================*/
 
 	void Update () {
 
@@ -45,7 +49,7 @@ public class GameManager : MonoBehaviour {
 	} // Update()
 
 
-	/*=========================== SpawnEnemy() ===========================*/
+	/*=========================== SpawnEnemy() ===================================================*/
 
 	// spawns enemies at the starting point 
 	private void SpawnEnemy(){

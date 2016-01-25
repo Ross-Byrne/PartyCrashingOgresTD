@@ -1,14 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/**
- * 
- * 
- */
-
 public class PathTile : MonoBehaviour {
 
-	/*=========================== Member Variables ===========================*/
+	/*=========================== Member Variables ===================================================*/
 	[SerializeField]
 	private string pathType;
 	[SerializeField]
@@ -18,5 +13,6 @@ public class PathTile : MonoBehaviour {
 		get {  return pathType; }
 		set { pathType = value; }
 	} // PathType get/set
+
 
 } // class

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-	/*=========================== Member Variables ===========================*/
+	/*=========================== Member Variables ===================================================*/
 
 	private string Type { get; set; }
 	private string EnemyName { get; set; }
@@ -15,21 +15,21 @@ public class Enemy : MonoBehaviour {
 	private GameObject objCollidedWith = null;
 
 
-	/*=========================== Methods ===========================*/
+	/*=========================== Methods ===================================================*/
 
-	/*=========================== Awake() ===========================*/
+	/*=========================== Awake() ===================================================*/
 
 	void Awake() {
 
 		// initialise variables
 
 		// set speed
-		Speed = 1.6f;
+		Speed = 1.4f;
 
 	} // Awake()
 
 
-	/*=========================== Update() ===========================*/
+	/*=========================== Update() ===================================================*/
 
 	void Update(){
 
@@ -87,14 +87,11 @@ public class Enemy : MonoBehaviour {
 				} // if
 			} // if
 		} // if
-
-
-
-
+			
 	} // Update()
 		
 
-	/*=========================== OnTriggerEnter2D() ===========================*/
+	/*=========================== OnTriggerEnter2D() ===================================================*/
 
 	// runs when a collision trigger is triggered, when an object enters collision with another object
 	void OnTriggerEnter2D(Collider2D other){
@@ -126,8 +123,7 @@ public class Enemy : MonoBehaviour {
 	} // OnTriggerEnter2D()
 
 
-
-	/*=========================== MoveUp() ===========================*/
+	/*=========================== MoveUp() ===================================================*/
 
 	// moves the enemy up
 	private void MoveUp(){
@@ -138,7 +134,7 @@ public class Enemy : MonoBehaviour {
 	} // MoveUp()
 
 
-	/*=========================== MoveDown() ===========================*/
+	/*=========================== MoveDown() ===================================================*/
 
 	// moves the enemy down
 	private void MoveDown(){
@@ -149,7 +145,7 @@ public class Enemy : MonoBehaviour {
 	} // MoveDown()
 
 
-	/*=========================== MoveLeft() ===========================*/
+	/*=========================== MoveLeft() ===================================================*/
 
 	// moves the enemy left
 	private void MoveLeft(){
@@ -160,7 +156,7 @@ public class Enemy : MonoBehaviour {
 	} // MoveLeft()
 
 
-	/*=========================== MoveRight() ===========================*/
+	/*=========================== MoveRight() ===================================================*/
 
 	// moves the enemy right
 	private void MoveRight(){

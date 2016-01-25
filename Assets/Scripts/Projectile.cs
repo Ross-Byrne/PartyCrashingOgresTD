@@ -3,20 +3,33 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
+	/*=========================== Member Variables ===================================================*/
+
 	GameObject defenceTower;
 	GameObject target = null;
 
-	float projectileSpeed = 3f;
+	float projectileSpeed = 0f;
 
+
+	/*=========================== Methods ===================================================*/
+
+	/*=========================== Start() ===================================================*/
 
 	void Start () {
 	
+		// get reference to DefenceTower object
 		defenceTower = gameObject.GetComponentInParent<DefenceTower> ().defenceTower;
 
+		// set the projectile speed
+		projectileSpeed = defenceTower.GetComponent<DefenceTower>().projectileSpeed;
+
+		// get the reference to the target enemy
 		target = defenceTower.GetComponent<DefenceTower> ().enemyTarget;
 
 	} // Start()
 
+
+	/*=========================== Update() ===================================================*/
 
 	// Update is called once per frame
 	void Update () {
@@ -35,5 +48,6 @@ public class Projectile : MonoBehaviour {
 		} // if
 	
 	} // Update()
+
 
 } // class

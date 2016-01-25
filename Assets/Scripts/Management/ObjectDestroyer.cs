@@ -5,9 +5,9 @@ using System.Collections;
 
 public class ObjectDestroyer : MonoBehaviour {
 
-	/*=========================== Methods ===========================*/
+	/*=========================== Methods ===================================================*/
 
-	/*=========================== OnTriggerEnter2D() ===========================*/
+	/*=========================== OnTriggerEnter2D() ===================================================*/
 
 	// runs when a collision trigger is triggered, when an object enters collision with another object
 	void OnTriggerEnter2D(Collider2D other){
