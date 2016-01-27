@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
 	private string EnemyName { get; set; }
 	private int Health { get; set; }
 	private float Speed { get; set; }
+	private int ScoreForKillingMe { get; set; }	// depends on enemy type
 
 	private string walkingDirection = "";
 	private bool isAtCenter = false;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour {
 	void Awake() {
 
 		// initialise variables
+		ScoreForKillingMe = 10;
 
 		// set speed
 		Speed = 1.4f;
@@ -116,6 +118,10 @@ public class Enemy : MonoBehaviour {
 			// destroy the projectile
 			Destroy (other.gameObject);
 
+			// add the score for being killed
+			GameObject.Find("_GameManager").GetComponent<GameManager>().gameScore += ScoreForKillingMe;
+
+			// kill the enemy
 			Destroy (gameObject);
 
 		} // if

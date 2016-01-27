@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,10 +10,15 @@ public class GameManager : MonoBehaviour {
 	public GameObject pathLayoutPrefab;
 	public GameObject enemyPrefab;
 
+	// UI
+	public Text scoreText;
+
 	// GameObjects
 	GameObject pathLayout;
 
 	float enemySpawnerSpeed; // time to wait before next spawn
+
+	public int gameScore;
 
 
 	/*=========================== Methods ===================================================*/
@@ -23,6 +29,7 @@ public class GameManager : MonoBehaviour {
 
 		// Initialise Variables
 		enemySpawnerSpeed = 0.8f;
+		gameScore = 0;
 
 		// instantiate the pathLayout
 		pathLayout = (GameObject)Instantiate (pathLayoutPrefab);
@@ -44,7 +51,15 @@ public class GameManager : MonoBehaviour {
 
 	void Update () {
 
+		// Update the UI
 
+		// check if the score has changed
+		if (gameScore != int.Parse(scoreText.text.Substring (7))) { // subString(7) to get rid of "Score: "
+
+			// update the score
+			scoreText.text = "Score: " + gameScore.ToString ();
+
+		} // if
 	
 	} // Update()
 
