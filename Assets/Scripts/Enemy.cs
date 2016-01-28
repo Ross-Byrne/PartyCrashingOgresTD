@@ -5,15 +5,17 @@ public class Enemy : MonoBehaviour {
 
 	/*=========================== Member Variables ===================================================*/
 
-	private string Type { get; set; }
-	private string EnemyName { get; set; }
-	private int Health { get; set; }
-	private float Speed { get; set; }
-	private int ScoreForKillingMe { get; set; }	// depends on enemy type
+	public string Type { get; set; }
+	public string EnemyName { get; set; }
+	public int Health { get; set; }
+	public float Speed { get; set; }
+	public int ScoreForKillingMe { get; set; }	// depends on enemy type
+	public float XVelocity { get; set; }
+	public float YVelocity { get; set; }
 
-	private string walkingDirection = "";
-	private bool isAtCenter = false;
-	private GameObject objCollidedWith = null;
+	public string walkingDirection = "";
+	public bool isAtCenter = false;
+	public GameObject objCollidedWith = null;
 
 
 	/*=========================== Methods ===================================================*/
@@ -27,6 +29,9 @@ public class Enemy : MonoBehaviour {
 
 		// set speed
 		Speed = 1.4f;
+
+		XVelocity = 0f;
+		YVelocity = 0f;
 
 	} // Awake()
 
@@ -129,13 +134,28 @@ public class Enemy : MonoBehaviour {
 	} // OnTriggerEnter2D()
 
 
+	/*=========================== MoveEnemy() ===================================================*/
+
+	// moves the enemy according to set velocity
+	private void MoveEnemy(float XVelocity, float YVelocity){
+
+		// move the enemy
+		transform.Translate (new Vector3 (XVelocity, YVelocity, 0f));
+
+	} // MoveEnemy()
+
+
 	/*=========================== MoveUp() ===================================================*/
 
 	// moves the enemy up
 	private void MoveUp(){
 
+		// record X and Y velocity
+		XVelocity = 0f;
+		YVelocity = (this.Speed * Time.deltaTime);
+			
 		// move the enemy up
-		transform.Translate (new Vector3 (0f, (this.Speed * Time.deltaTime), 0f));
+		MoveEnemy(XVelocity, YVelocity);
 
 	} // MoveUp()
 
@@ -145,8 +165,12 @@ public class Enemy : MonoBehaviour {
 	// moves the enemy down
 	private void MoveDown(){
 
+		// record X and Y velocity
+		XVelocity = 0f;
+		YVelocity = (-this.Speed * Time.deltaTime);
+
 		// move the enemy down
-		transform.Translate (new Vector3 (0f, (-this.Speed * Time.deltaTime), 0f));
+		MoveEnemy(XVelocity, YVelocity);
 
 	} // MoveDown()
 
@@ -156,8 +180,12 @@ public class Enemy : MonoBehaviour {
 	// moves the enemy left
 	private void MoveLeft(){
 
+		// record X and Y velocity
+		XVelocity = (-this.Speed * Time.deltaTime);
+		YVelocity = 0f;
+
 		// move the enemy left
-		transform.Translate (new Vector3 ((-this.Speed * Time.deltaTime), 0f, 0f));
+		MoveEnemy(XVelocity, YVelocity);
 
 	} // MoveLeft()
 
@@ -167,8 +195,12 @@ public class Enemy : MonoBehaviour {
 	// moves the enemy right
 	private void MoveRight(){
 
+		// record X and Y velocity
+		XVelocity = (this.Speed * Time.deltaTime);
+		YVelocity = 0f;
+
 		// move the enemy right
-		transform.Translate (new Vector3 (this.Speed * Time.deltaTime, 0f, 0f));
+		MoveEnemy(XVelocity, YVelocity);
 
 	} // MoveRight()
 

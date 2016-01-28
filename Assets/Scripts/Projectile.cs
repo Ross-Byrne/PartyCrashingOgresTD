@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour {
 	/*=========================== Member Variables ===================================================*/
 
 	GameObject defenceTower;
-	GameObject target = null;
+	GameObject target;
 
 	float projectileSpeed = 0f;
 
