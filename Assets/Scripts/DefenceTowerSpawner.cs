@@ -12,7 +12,14 @@ public class DefenceTowerSpawner : MonoBehaviour {
 	public GameObject defenceTowerPrefab;
 
 
+	// GameObjects
+	private GameObject currentSpawnedTower = null;
+
+
 	// Variables
+	private bool towerIsPlaced = false;
+	private bool towerIsSpawned = false;
+
 	[SerializeField]private float lvl1FireRate = 1.2f;
 	[SerializeField]private float lvl1TowerRange = 2.5f;
 	[SerializeField]private float lvl1ProjectileSpeed = 5f;
@@ -32,12 +39,53 @@ public class DefenceTowerSpawner : MonoBehaviour {
 	} // Awake()
 
 
+	/*=========================== Update() ===================================================*/
+
+	void Update(){
+
+		// if the tower is spawned but not places
+		if (towerIsSpawned && !towerIsPlaced) {
+
+			// lock tower position to mouse until places
+
+		} // if
+
+	} // Update()
+
+
 	/*=========================== SpawnDefenceTower() ===================================================*/
 
 	// Spawns a tower based on level given
 	void SpawnDefenceTower(int level){
 
 		Debug.Log ("Spawn Tower LVL: " + level);
+
+		// spawn the tower
+		currentSpawnedTower = (GameObject)Instantiate (defenceTowerPrefab);
+
+		// setup tower
+		switch (level) {
+		case 1:
+
+			// set the towers fire rate
+			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
+
+			// set the towers range
+			currentSpawnedTower.GetComponent<DefenceTower> ().towerRange = lvl1TowerRange;
+
+			// set the towers projectile speed
+			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
+
+			break;
+		default:
+
+			Debug.Log ("Error, Not a tower!");
+			break;
+
+		} // switch
+
+		// flag as spawned
+		towerIsSpawned = true;
 
 	} // SpawnDefenceTower()
 
