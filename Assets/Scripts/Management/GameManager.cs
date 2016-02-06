@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour {
 	} // Awake()
 
 
-	/*=========================== Update() ===================================================*/
+	/*=========================== Start() ===================================================*/
 
 	void Start(){
 
@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour {
 			scoreText.text = "Score: " + gameScore.ToString ();
 
 		} // if
+
+	
 	
 	} // Update()
 
@@ -109,6 +111,23 @@ public class GameManager : MonoBehaviour {
 		towerSevenButton.onClick.AddListener ();*/
 
 	} // SetUpUI()
+
+
+	/*=========================== EnableDisableTowerUI() ===================================================*/
+
+	// sets the spawn defence tower buttons to either interactable or not
+	public void EnableDisableTowerUI(bool isInteractable){
+
+		// sets the buttons to either interactable or not
+		towerOneButton.interactable = isInteractable;
+		towerTwoButton.interactable = isInteractable;
+		towerThreeButton.interactable = isInteractable;
+		towerFourButton.interactable = isInteractable;
+		towerFiveButton.interactable = isInteractable;
+		towerSixButton.interactable = isInteractable;
+		towerSevenButton.interactable = isInteractable;
+
+	} // EnableDisableTowerUI()
 
 
 } // class

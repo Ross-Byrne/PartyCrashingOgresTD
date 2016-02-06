@@ -18,7 +18,8 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 	// Variables
 	private bool towerIsPlaced = false;
-	private bool towerIsSpawned = false;
+	public bool towerIsSpawned = false;
+	private float zValue;
 
 	[SerializeField]private float lvl1FireRate = 1.2f;
 	[SerializeField]private float lvl1TowerRange = 2.5f;
@@ -36,6 +37,8 @@ public class DefenceTowerSpawner : MonoBehaviour {
 		lvl1TowerRange = 2.5f;
 		lvl1projectileSpeed = 5f;*/
 
+		zValue = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
+
 	} // Awake()
 
 
@@ -46,8 +49,39 @@ public class DefenceTowerSpawner : MonoBehaviour {
 		// if the tower is spawned but not places
 		if (towerIsSpawned && !towerIsPlaced) {
 
-			// lock tower position to mouse until places
+			Vector3 targetPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, zValue);
 
+			targetPos = Camera.main.ScreenToWorldPoint (targetPos);
+
+			if (Vector3.Distance(currentSpawnedTower.transform.position, targetPos) > 0) {
+				
+				// lock tower position to mouse until places
+				currentSpawnedTower.transform.position = Vector3.Lerp (currentSpawnedTower.transform.position, targetPos, 15 * Time.deltaTime);
+
+			} // if
+
+		} // if
+
+
+		// if the mouse is clicked
+		if (Input.GetMouseButtonDown (0)) {
+
+			// if tower is spawned but not placed
+			if (towerIsSpawned && !towerIsPlaced) {
+
+				// flag tower as placed
+				towerIsPlaced = true;
+
+				// set tower is spawned to false
+				towerIsSpawned = false;
+
+				// clear placed tower's reference
+				currentSpawnedTower = null;
+
+				// enable tower spawning ui
+				gameObject.GetComponent<GameManager>().EnableDisableTowerUI(true);
+
+			} // if
 		} // if
 
 	} // Update()
@@ -61,7 +95,7 @@ public class DefenceTowerSpawner : MonoBehaviour {
 		Debug.Log ("Spawn Tower LVL: " + level);
 
 		// spawn the tower
-		currentSpawnedTower = (GameObject)Instantiate (defenceTowerPrefab);
+		currentSpawnedTower = (GameObject)Instantiate (defenceTowerPrefab, transform.position, Quaternion.identity);
 
 		// setup tower
 		switch (level) {
@@ -86,6 +120,10 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 		// flag as spawned
 		towerIsSpawned = true;
+		towerIsPlaced = false;
+
+		// disable tower spawning ui
+		gameObject.GetComponent<GameManager>().EnableDisableTowerUI(false);
 
 	} // SpawnDefenceTower()
 
