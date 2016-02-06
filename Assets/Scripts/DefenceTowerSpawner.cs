@@ -62,7 +62,6 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 		} // if
 
-
 		// if the mouse is clicked
 		if (Input.GetMouseButtonDown (0)) {
 
@@ -94,8 +93,14 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 		Debug.Log ("Spawn Tower LVL: " + level);
 
-		// spawn the tower
-		currentSpawnedTower = (GameObject)Instantiate (defenceTowerPrefab, transform.position, Quaternion.identity);
+		// get the coord for the mouse
+		Vector3 targetPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, zValue);
+
+		// translate them to game world coords
+		targetPos = Camera.main.ScreenToWorldPoint (targetPos);
+
+		// spawn the tower where the mouse is
+		currentSpawnedTower = (GameObject)Instantiate (defenceTowerPrefab, targetPos, Quaternion.identity);
 
 		// setup tower
 		switch (level) {
