@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour {
 		// set speed
 		Speed = 1.4f;
 
+		// set health
+		Health = 2;
+
 		XVelocity = 0f;
 		YVelocity = 0f;
 
@@ -123,15 +126,34 @@ public class Enemy : MonoBehaviour {
 			// destroy the projectile
 			Destroy (other.gameObject);
 
-			// add the score for being killed
-			GameObject.Find("_GameManager").GetComponent<GameManager>().gameScore += ScoreForKillingMe;
+			// reduce health
+			Health--;
 
-			// kill the enemy
-			Destroy (gameObject);
+			// if enemies health is gone
+			if (Health <= 0) {
+
+				// kill the enemy
+				KillEnemy ();
+
+			} // if
 
 		} // if
 
 	} // OnTriggerEnter2D()
+
+
+	/*=========================== KillEnemy() ===================================================*/
+
+	// handles the killing of an enemy
+	private void KillEnemy(){
+
+		// add the score for being killed
+		GameObject.Find("_GameManager").GetComponent<GameManager>().gameScore += ScoreForKillingMe;
+
+		// kill the enemy
+		Destroy (gameObject);
+
+	} // KillEnemy()
 
 
 	/*=========================== MoveEnemy() ===================================================*/

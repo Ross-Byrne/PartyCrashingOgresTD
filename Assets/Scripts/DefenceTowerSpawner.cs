@@ -21,9 +21,9 @@ public class DefenceTowerSpawner : MonoBehaviour {
 	public bool towerIsSpawned = false;
 	private float zValue;
 
-	[SerializeField]private float lvl1FireRate = 1.2f;
-	[SerializeField]private float lvl1TowerRange = 2.5f;
-	[SerializeField]private float lvl1ProjectileSpeed = 5f;
+	[SerializeField]private float lvl1FireRate;
+	[SerializeField]private float lvl1TowerRange;
+	[SerializeField]private float lvl1ProjectileSpeed;
 
 
 	/*=========================== Methods ===================================================*/
@@ -33,9 +33,9 @@ public class DefenceTowerSpawner : MonoBehaviour {
 	void Awake(){
 
 		// initialise Variables
-		/*lvl1FireRate = 1.2f;
+		lvl1FireRate = 0.8f;
 		lvl1TowerRange = 2.5f;
-		lvl1projectileSpeed = 5f;*/
+		lvl1ProjectileSpeed = 7f;
 
 		zValue = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
 
@@ -110,7 +110,7 @@ public class DefenceTowerSpawner : MonoBehaviour {
 			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
 
 			// set the towers range
-			currentSpawnedTower.GetComponent<DefenceTower> ().towerRange = lvl1TowerRange;
+			currentSpawnedTower.GetComponent<DefenceTower> ().TowerRange = lvl1TowerRange;
 
 			// set the towers projectile speed
 			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;

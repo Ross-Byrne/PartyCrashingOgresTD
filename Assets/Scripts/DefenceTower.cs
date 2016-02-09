@@ -10,7 +10,21 @@ public class DefenceTower : MonoBehaviour {
 	public GameObject defenceTower;
 	public GameObject enemyTarget;
 
-	public float towerRange;
+	private float towerRange;
+
+	public float TowerRange{
+
+		get{ return towerRange;}
+
+		set { 	
+			
+			towerRange = value;
+
+			// set the radius of the tower circle collider to set its range
+			GetComponent<CircleCollider2D> ().radius = towerRange;
+		}
+
+	}
 	public float projectileSpeed;	// speed projectile travels at (bigger number = faster)
 	public float fireRate;			// seconds to wait before next shot (smaller number = faster)
 
@@ -26,16 +40,16 @@ public class DefenceTower : MonoBehaviour {
 	void Awake () {
 
 		// Set variable values
-		towerRange = 2.5f;
-		projectileSpeed = 5f;
-		fireRate = 1.2f;
+	//	towerRange = 2.5f;
+	//	projectileSpeed = 5f;
+	//	fireRate = 1.2f;
 		isScanningForEnemies = true;
 
 		// get reference to gameObject
 		defenceTower = gameObject;
 
 		// set the radius of the tower circle collider to set its range
-		GetComponent<CircleCollider2D> ().radius = towerRange;
+		//GetComponent<CircleCollider2D> ().radius = towerRange;
 	
 	} // Awake()
 
