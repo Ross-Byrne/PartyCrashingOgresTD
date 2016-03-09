@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour {
 
@@ -7,6 +8,7 @@ public class Enemy : MonoBehaviour {
 
 	public string Type { get; set; }
 	public string EnemyName { get; set; }
+	public int TotalHealth { get; set; }
 	public int Health { get; set; }
 	public float Speed { get; set; }
 	public int ScoreForKillingMe { get; set; }	// depends on enemy type
@@ -17,12 +19,17 @@ public class Enemy : MonoBehaviour {
 	public bool isAtCenter = false;
 	public GameObject objCollidedWith = null;
 
+	private Image healthBar;
+
 
 	/*=========================== Methods ===================================================*/
 
 	/*=========================== Awake() ===================================================*/
 
 	void Awake() {
+
+		// get a reference to the health bar
+		healthBar = gameObject.GetComponentInChildren<Image>();
 
 		// initialise variables
 		ScoreForKillingMe = 10;
@@ -31,7 +38,8 @@ public class Enemy : MonoBehaviour {
 		Speed = 1.4f;
 
 		// set health
-		Health = 2;
+		TotalHealth = 2;
+		Health = TotalHealth;
 
 		XVelocity = 0f;
 		YVelocity = 0f;
@@ -128,6 +136,9 @@ public class Enemy : MonoBehaviour {
 
 			// reduce health
 			Health--;
+
+			// decrease health bar by calculating % of total health
+			healthBar.fillAmount = (float)Health / TotalHealth;
 
 			// if enemies health is gone
 			if (Health <= 0) {
