@@ -9,7 +9,8 @@ public class DefenceTowerSpawner : MonoBehaviour {
 	/*=========================== Member Variables ===================================================*/
 
 	// Prefabs
-	public GameObject defenceTowerPrefab;
+	public GameObject defenceTowerLvl1Prefab;
+	public GameObject defenceTowerLvl2Prefab;
 
 
 	// GameObjects
@@ -89,7 +90,7 @@ public class DefenceTowerSpawner : MonoBehaviour {
 	/*=========================== SpawnDefenceTower() ===================================================*/
 
 	// Spawns a tower based on level given
-	void SpawnDefenceTower(int level){
+	public void SpawnDefenceTower(int level){
 
 		Debug.Log ("Spawn Tower LVL: " + level);
 
@@ -99,12 +100,27 @@ public class DefenceTowerSpawner : MonoBehaviour {
 		// translate them to game world coords
 		targetPos = Camera.main.ScreenToWorldPoint (targetPos);
 
-		// spawn the tower where the mouse is
-		currentSpawnedTower = (GameObject)Instantiate (defenceTowerPrefab, targetPos, Quaternion.identity);
-
 		// setup tower
 		switch (level) {
 		case 1:
+
+			// spawn the tower where the mouse is
+			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl1Prefab, targetPos, Quaternion.identity);
+
+			// set the towers fire rate
+			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
+
+			// set the towers range
+			currentSpawnedTower.GetComponent<DefenceTower> ().TowerRange = lvl1TowerRange;
+
+			// set the towers projectile speed
+			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
+
+			break;
+		case 2:
+
+			// spawn the tower where the mouse is
+			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl2Prefab, targetPos, Quaternion.identity);
 
 			// set the towers fire rate
 			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
@@ -131,18 +147,6 @@ public class DefenceTowerSpawner : MonoBehaviour {
 		gameObject.GetComponent<GameManager>().EnableDisableTowerUI(false);
 
 	} // SpawnDefenceTower()
-
-
-	/*=========================== SpawnTowerLvlOneButton() ===================================================*/
-
-	// this is a button OnClick method
-	// spawns a level one tower
-	public void SpawnTowerLvlOneButton(){
-
-		// spawn a level one tower
-		SpawnDefenceTower (1);
-
-	} // SpawnTowerLvlOneButton()
 
 
 } // class
