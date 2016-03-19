@@ -6,7 +6,7 @@ public class DefenceTower : MonoBehaviour {
 	/*=========================== Member Variables ===================================================*/
 
 	[SerializeField] GameObject projectilePrefab;
-	[SerializeField] Transform projectileSpawnerTransform;
+	[SerializeField] Transform[] projectileSpawnerTransforms;
 	public GameObject defenceTower;
 	public GameObject enemyTarget;
 
@@ -167,11 +167,16 @@ public class DefenceTower : MonoBehaviour {
 	// Spawns a projectile and gives it a target
 	void SpawnProjectile(){
 
-		// Instantiate projectile at spawner
-		GameObject projectile = (GameObject)Instantiate (projectilePrefab, projectileSpawnerTransform.position, Quaternion.identity);
+		// spawn a projectile for each spawner
+		for (int i = 0; i < projectileSpawnerTransforms.Length; i++) {
+			
+			// Instantiate projectile at spawner
+			GameObject projectile = (GameObject)Instantiate (projectilePrefab, projectileSpawnerTransforms [i].position, Quaternion.identity);
 
-		// make a child of projectile spawner
-		projectile.transform.SetParent(projectileSpawnerTransform, true);
+			// make a child of projectile spawner
+			projectile.transform.SetParent (projectileSpawnerTransforms [i], true);
+
+		} // for
 
 	} // SpawnProjectile()
 		

@@ -11,6 +11,7 @@ public class DefenceTowerSpawner : MonoBehaviour {
 	// Prefabs
 	public GameObject defenceTowerLvl1Prefab;
 	public GameObject defenceTowerLvl2Prefab;
+	public GameObject defenceTowerLvl3Prefab;
 
 
 	// GameObjects
@@ -121,6 +122,21 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 			// spawn the tower where the mouse is
 			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl2Prefab, targetPos, Quaternion.identity);
+
+			// set the towers fire rate
+			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
+
+			// set the towers range
+			currentSpawnedTower.GetComponent<DefenceTower> ().TowerRange = lvl1TowerRange;
+
+			// set the towers projectile speed
+			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
+
+			break;
+		case 3:
+
+			// spawn the tower where the mouse is
+			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl3Prefab, targetPos, Quaternion.identity);
 
 			// set the towers fire rate
 			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
