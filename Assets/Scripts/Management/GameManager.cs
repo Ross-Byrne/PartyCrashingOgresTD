@@ -105,8 +105,8 @@ public class GameManager : MonoBehaviour {
 		towerOneButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(1));
 		towerTwoButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(2));
 		towerThreeButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(3));
-		/*towerFourButton.onClick.AddListener ();
-		towerFiveButton.onClick.AddListener ();
+		towerFourButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(4));
+		/*towerFiveButton.onClick.AddListener ();
 		towerSixButton.onClick.AddListener ();
 		towerSevenButton.onClick.AddListener ();*/
 
