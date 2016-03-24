@@ -188,8 +188,8 @@ public class Enemy : MonoBehaviour {
 		XVelocity = 0f;
 		YVelocity = (this.Speed * Time.deltaTime);
 
-		// rotate enemy body to 0, 0, 0
-		enemyBody.transform.Rotate(new Vector3(0f, 0f, 0f));
+		// rotate enemy body to 0, 0, 90
+		enemyBody.transform.eulerAngles = new Vector3(0f, 0f, 90f);
 			
 		// move the enemy up
 		MoveEnemy(XVelocity, YVelocity);
@@ -206,8 +206,8 @@ public class Enemy : MonoBehaviour {
 		XVelocity = 0f;
 		YVelocity = (-this.Speed * Time.deltaTime);
 
-		// rotate enemy body to 0, 0, 180
-		enemyBody.transform.Rotate(new Vector3(0f, 0f, 180f));
+		// rotate enemy body to 0, 0, -90
+		enemyBody.transform.eulerAngles = new Vector3(0f, 0f, -90f);
 
 		// move the enemy down
 		MoveEnemy(XVelocity, YVelocity);
@@ -224,8 +224,8 @@ public class Enemy : MonoBehaviour {
 		XVelocity = (-this.Speed * Time.deltaTime);
 		YVelocity = 0f;
 
-		// rotate enemy body to 0, 0, 0
-		enemyBody.transform.Rotate(new Vector3(0f, 0f, 90f));
+		// rotate enemy body to 0, 0, 180
+		enemyBody.transform.eulerAngles = new Vector3(0f, 0f, 180f);
 
 		// move the enemy left
 		MoveEnemy(XVelocity, YVelocity);
@@ -243,7 +243,7 @@ public class Enemy : MonoBehaviour {
 		YVelocity = 0f;
 
 		// rotate enemy body to 0, 0, 0
-		enemyBody.transform.Rotate(new Vector3(0f, 0f, -90f));
+		enemyBody.transform.eulerAngles = new Vector3(0f, 0f, 0f);
 
 		// move the enemy right
 		MoveEnemy(XVelocity, YVelocity);
