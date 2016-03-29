@@ -27,6 +27,7 @@ public class DefenceTower : MonoBehaviour {
 	}
 	public float projectileSpeed;	// speed projectile travels at (bigger number = faster)
 	public float fireRate;			// seconds to wait before next shot (smaller number = faster)
+	public int projectileDamage;
 
 	bool isScanningForEnemies = true;
 	bool isShooting = false;

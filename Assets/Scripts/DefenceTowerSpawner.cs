@@ -119,6 +119,9 @@ public class DefenceTowerSpawner : MonoBehaviour {
 			// set the towers projectile speed
 			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
 
+			// set towers projectile damage
+			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 1;
+
 			break;
 		case 2:
 
@@ -133,6 +136,9 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 			// set the towers projectile speed
 			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
+
+			// set towers projectile damage
+			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 1;
 
 			break;
 		case 3:
@@ -149,6 +155,9 @@ public class DefenceTowerSpawner : MonoBehaviour {
 			// set the towers projectile speed
 			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
 
+			// set towers projectile damage
+			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 1;
+
 			break;
 		case 4:
 
@@ -164,6 +173,9 @@ public class DefenceTowerSpawner : MonoBehaviour {
 			// set the towers projectile speed
 			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
 
+			// set towers projectile damage
+			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 2;
+
 			break;
 		case 5:
 
@@ -178,6 +190,9 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 			// set the towers projectile speed
 			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
+
+			// set towers projectile damage
+			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 3;
 
 			break;
 		default:

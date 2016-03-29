@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour {
 	bool animationFinished = false;
 
 	float projectileSpeed = 0f;
+	public int projectileDamage = 0;
 
 
 	/*=========================== Methods ===================================================*/
@@ -24,6 +25,9 @@ public class Projectile : MonoBehaviour {
 
 		// set the projectile speed
 		projectileSpeed = defenceTower.GetComponent<DefenceTower>().projectileSpeed;
+
+		// set projectile damage
+		projectileDamage = defenceTower.GetComponent<DefenceTower>().projectileDamage;
 
 		// get the reference to the target enemy
 		target = defenceTower.GetComponent<DefenceTower> ().enemyTarget;
@@ -73,10 +77,21 @@ public class Projectile : MonoBehaviour {
 	} // Update()
 
 
+	/*=========================== BiggerAnimFinished() ===================================================*/
+
+	// runs when the projectile gets bigger animation is finished
 	public void BiggerAnimFinished(){
 
+		// flag animation as finished
 		animationFinished = true;
 
 	} // BiggerAnimFinished()
+
+
+	public void TurnOnBlast(){
+
+		GetComponentInChildren<ParticleSystem> ().Play ();
+
+	}
 
 } // class
