@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
 
 		// Initialise Variables
 		gameLevel = 1;
-		enemySpawnerSpeed = 0.8f;
+		enemySpawnerSpeed = 2f;
 		gameScore = 0;
 
 		// Setup the games UI
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
 
 	void Start(){
 
-		// spawn an enemy every 10 secs
+		// spawn an enemy every 1 secs
 		InvokeRepeating ("SpawnEnemy", 1f, enemySpawnerSpeed);
 
 	} // Start()

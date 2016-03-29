@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour {
 		ScoreForKillingMe = 10;
 
 		// set speed
-		Speed = 1.4f;
+		Speed = 0.8f;
 
 		// set health
 		TotalHealth = 2;
