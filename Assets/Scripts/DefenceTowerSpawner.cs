@@ -156,7 +156,7 @@ public class DefenceTowerSpawner : MonoBehaviour {
 			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl4Prefab, targetPos, Quaternion.identity);
 
 			// set the towers fire rate
-			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
+			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = 1.4f;
 
 			// set the towers range
 			currentSpawnedTower.GetComponent<DefenceTower> ().TowerRange = lvl1TowerRange;

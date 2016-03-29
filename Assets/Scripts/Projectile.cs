@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour {
 
 	GameObject defenceTower;
 	GameObject target;
+	Animator anim;
+	bool animationFinished = false;
 
 	float projectileSpeed = 0f;
 
@@ -26,6 +28,24 @@ public class Projectile : MonoBehaviour {
 		// get the reference to the target enemy
 		target = defenceTower.GetComponent<DefenceTower> ().enemyTarget;
 
+		// set animation to not finished
+		animationFinished = false;
+
+		// get reference to animator
+		anim = GetComponent<Animator>();
+
+		if (defenceTower.tag == "TowerLvl4") {
+
+			// run animation Projectile gets bigger
+			anim.Play("ProjectileGetsBigger", 0, 0f);
+
+		} else { // if not lvl 4 tower
+
+			// animation does not play
+			animationFinished = true;
+
+		} // if
+
 	} // Start()
 
 
@@ -34,20 +54,29 @@ public class Projectile : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// if there is a target object
-		if (target != null) {
+		if(animationFinished == true){
+			
+			// if there is a target object
+			if (target != null) {
 
-			// fire projectile at target
-			transform.position = Vector3.MoveTowards (transform.position, target.transform.position, projectileSpeed * Time.deltaTime);
+				// fire projectile at target
+				transform.position = Vector3.MoveTowards (transform.position, target.transform.position, projectileSpeed * Time.deltaTime);
 
-		} else { // if no target object
+			} else { // if no target object
 
-			// destroy projectile
-			Destroy(gameObject);
+				// destroy projectile
+				Destroy(gameObject);
 
+			} // if
 		} // if
 	
 	} // Update()
 
+
+	public void BiggerAnimFinished(){
+
+		animationFinished = true;
+
+	} // BiggerAnimFinished()
 
 } // class
