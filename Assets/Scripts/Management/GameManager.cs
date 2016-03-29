@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
 
 		// Initialise Variables
 		gameLevel = 1;
-		enemySpawnerSpeed = 2f;
+		enemySpawnerSpeed = 1.8f;
 		gameScore = 0;
 
 		// Setup the games UI
