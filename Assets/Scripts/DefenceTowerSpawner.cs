@@ -8,14 +8,6 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 	/*=========================== Member Variables ===================================================*/
 
-	// Prefabs
-	public GameObject defenceTowerLvl1Prefab;
-	public GameObject defenceTowerLvl2Prefab;
-	public GameObject defenceTowerLvl3Prefab;
-	public GameObject defenceTowerLvl4Prefab;
-	public GameObject defenceTowerLvl5Prefab;
-
-
 	// GameObjects
 	private GameObject currentSpawnedTower = null;
 
@@ -25,10 +17,6 @@ public class DefenceTowerSpawner : MonoBehaviour {
 	public bool towerIsSpawned = false;
 	private float zValue;
 
-	[SerializeField]private float lvl1FireRate;
-	[SerializeField]private float lvl1TowerRange;
-	[SerializeField]private float lvl1ProjectileSpeed;
-
 
 	/*=========================== Methods ===================================================*/
 
@@ -37,10 +25,7 @@ public class DefenceTowerSpawner : MonoBehaviour {
 	void Awake(){
 
 		// initialise Variables
-		lvl1FireRate = 0.8f;
-		lvl1TowerRange = 2.5f;
-		lvl1ProjectileSpeed = 7f;
-
+	
 		zValue = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
 
 	} // Awake()
@@ -53,10 +38,13 @@ public class DefenceTowerSpawner : MonoBehaviour {
 		// if the tower is spawned but not places
 		if (towerIsSpawned && !towerIsPlaced) {
 
+			// target pos is the position of mouse
 			Vector3 targetPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, zValue);
 
+			// get position of mouse in game coords
 			targetPos = Camera.main.ScreenToWorldPoint (targetPos);
 
+			// if tower is not on mouse, lock the tower to the position of the mouse
 			if (Vector3.Distance(currentSpawnedTower.transform.position, targetPos) > 0) {
 				
 				// lock tower position to mouse until places
@@ -92,124 +80,44 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 	/*=========================== SpawnDefenceTower() ===================================================*/
 
-	// Spawns a tower based on level given
+	// spawns defence tower based on level given
 	public void SpawnDefenceTower(int level){
 
-		Debug.Log ("Spawn Tower LVL: " + level);
+		// to safety check that that prefab exists
+		if (level < 6 && level > 0) {
 
-		// get the coord for the mouse
-		Vector3 targetPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, zValue);
+			// get the coord for the mouse
+			Vector3 targetPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, zValue);
 
-		// translate them to game world coords
-		targetPos = Camera.main.ScreenToWorldPoint (targetPos);
+			// translate them to game world coords
+			targetPos = Camera.main.ScreenToWorldPoint (targetPos);
 
-		// setup tower
-		switch (level) {
-		case 1:
-
-			// spawn the tower where the mouse is
-			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl1Prefab, targetPos, Quaternion.identity);
+			// spawn the tower where the mouse is using Resources folder to load correct tower
+			currentSpawnedTower = (GameObject)Instantiate ((GameObject)Resources.Load ("Prefabs/DefenceTowerLvl" + level), targetPos, Quaternion.identity);
 
 			// set the towers fire rate
-			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
-
-			// set the towers range
-			currentSpawnedTower.GetComponent<DefenceTower> ().TowerRange = lvl1TowerRange;
+			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = GetComponent<TowerStats> ().GetTowerFireRate (level);
 
 			// set the towers projectile speed
-			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
+			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = GetComponent<TowerStats> ().GetTowerProjectileSpeed (level);
 
 			// set towers projectile damage
-			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 1;
+			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = GetComponent<TowerStats> ().GetTowerProjectileDamage (level);
 
-			break;
-		case 2:
+			// flag as spawned
+			towerIsSpawned = true;
+			towerIsPlaced = false;
 
-			// spawn the tower where the mouse is
-			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl2Prefab, targetPos, Quaternion.identity);
+			// disable tower spawning ui
+			GetComponent<GameManager>().EnableDisableTowerUI(false);
 
-			// set the towers fire rate
-			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
+		} else {
 
-			// set the towers range
-			currentSpawnedTower.GetComponent<DefenceTower> ().TowerRange = lvl1TowerRange;
+			Debug.Log ("Error, That Tower Does Not Exist!");
 
-			// set the towers projectile speed
-			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
-
-			// set towers projectile damage
-			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 1;
-
-			break;
-		case 3:
-
-			// spawn the tower where the mouse is
-			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl3Prefab, targetPos, Quaternion.identity);
-
-			// set the towers fire rate
-			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
-
-			// set the towers range
-			currentSpawnedTower.GetComponent<DefenceTower> ().TowerRange = lvl1TowerRange;
-
-			// set the towers projectile speed
-			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
-
-			// set towers projectile damage
-			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 1;
-
-			break;
-		case 4:
-
-			// spawn the tower where the mouse is
-			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl4Prefab, targetPos, Quaternion.identity);
-
-			// set the towers fire rate
-			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = 1.4f;
-
-			// set the towers range
-			currentSpawnedTower.GetComponent<DefenceTower> ().TowerRange = lvl1TowerRange;
-
-			// set the towers projectile speed
-			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
-
-			// set towers projectile damage
-			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 2;
-
-			break;
-		case 5:
-
-			// spawn the tower where the mouse is
-			currentSpawnedTower = (GameObject)Instantiate (defenceTowerLvl5Prefab, targetPos, Quaternion.identity);
-
-			// set the towers fire rate
-			currentSpawnedTower.GetComponent<DefenceTower> ().fireRate = lvl1FireRate;
-
-			// set the towers range
-			currentSpawnedTower.GetComponent<DefenceTower> ().TowerRange = lvl1TowerRange;
-
-			// set the towers projectile speed
-			currentSpawnedTower.GetComponent<DefenceTower> ().projectileSpeed = lvl1ProjectileSpeed;
-
-			// set towers projectile damage
-			currentSpawnedTower.GetComponent<DefenceTower>().projectileDamage = 3;
-
-			break;
-		default:
-
-			Debug.Log ("Error, Not a tower!");
-			break;
-
-		} // switch
-
-		// flag as spawned
-		towerIsSpawned = true;
-		towerIsPlaced = false;
-
-		// disable tower spawning ui
-		gameObject.GetComponent<GameManager>().EnableDisableTowerUI(false);
+		} // if
 
 	} // SpawnDefenceTower()
-
+		
 
 } // class

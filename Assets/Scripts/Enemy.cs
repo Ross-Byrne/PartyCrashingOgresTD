@@ -132,8 +132,6 @@ public class Enemy : MonoBehaviour {
 			// reduce health by projectile damage
 			Health -= other.GetComponent<Projectile>().projectileDamage;
 
-			Debug.Log ("Projectile damage: " + other.GetComponent<Projectile>().projectileDamage);
-
 			// destroy the projectile
 			if(other.gameObject != null)
 				Destroy (other.gameObject);
