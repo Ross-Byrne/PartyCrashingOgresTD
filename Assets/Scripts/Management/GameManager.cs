@@ -7,19 +7,16 @@ public class GameManager : MonoBehaviour {
 	/*=========================== Member Variables ===================================================*/
 
 	// Prefabs
-	public GameObject pathLayoutPrefab;
-	public GameObject enemyPrefab;
+	private GameObject pathLayoutPrefab;
 
 
 	// UI
-	public Text scoreText;
-	public Button towerOneButton;
-	public Button towerTwoButton;
-	public Button towerThreeButton;
-	public Button towerFourButton;
-	public Button towerFiveButton;
-	public Button towerSixButton;
-	public Button towerSevenButton;
+	private Text scoreText;
+	private Button towerOneButton;
+	private Button towerTwoButton;
+	private Button towerThreeButton;
+	private Button towerFourButton;
+	private Button towerFiveButton;
 
 
 	// GameObjects
@@ -29,7 +26,6 @@ public class GameManager : MonoBehaviour {
 	// Variables
 	int gameLevel;
 	float enemySpawnerSpeed; // time to wait before next spawn
-
 	public int gameScore;
 
 
@@ -39,7 +35,22 @@ public class GameManager : MonoBehaviour {
 
 	void Awake(){
 
+		// get reference to pathLayoutPrefab
+
+		pathLayoutPrefab = (GameObject)Resources.Load ("Prefabs/PathLayout1");
+
+
+		// get references to UI
+
+		scoreText = GameObject.Find ("ScoreText").GetComponent<Text>();
+		towerOneButton = GameObject.Find ("TowerOneButton").GetComponent<Button>();
+		towerTwoButton = GameObject.Find ("TowerTwoButton").GetComponent<Button>();
+		towerThreeButton = GameObject.Find ("TowerThreeButton").GetComponent<Button>();
+		towerFourButton = GameObject.Find ("TowerFourButton").GetComponent<Button>();
+		towerFiveButton = GameObject.Find ("TowerFiveButton").GetComponent<Button>();
+
 		// Initialise Variables
+
 		gameLevel = 1;
 		enemySpawnerSpeed = 1.8f;
 		gameScore = 0;
@@ -58,7 +69,7 @@ public class GameManager : MonoBehaviour {
 	void Start(){
 
 		// spawn an enemy every 1 secs
-		GetComponent<EnemySpawner>().SpawnEnemy(1);
+		GetComponent<EnemySpawner>().SpawnEnemy(2);
 
 	} // Start()
 
@@ -91,8 +102,6 @@ public class GameManager : MonoBehaviour {
 		towerThreeButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(3));
 		towerFourButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(4));
 		towerFiveButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(5));
-		/*towerSixButton.onClick.AddListener ();
-		towerSevenButton.onClick.AddListener ();*/
 
 	} // SetUpUI()
 
@@ -108,8 +117,6 @@ public class GameManager : MonoBehaviour {
 		towerThreeButton.interactable = isInteractable;
 		towerFourButton.interactable = isInteractable;
 		towerFiveButton.interactable = isInteractable;
-		towerSixButton.interactable = isInteractable;
-		towerSevenButton.interactable = isInteractable;
 
 	} // EnableDisableTowerUI()
 
