@@ -6,8 +6,6 @@ public class Enemy : MonoBehaviour {
 
 	/*=========================== Member Variables ===================================================*/
 
-	public string Type { get; set; }
-	public string EnemyName { get; set; }
 	public int TotalHealth { get; set; }
 	public int Health { get; set; }
 	public float Speed { get; set; }
@@ -32,20 +30,19 @@ public class Enemy : MonoBehaviour {
 		// get a reference to the health bar
 		healthBar = gameObject.GetComponentInChildren<Image>();
 
-		// initialise variables
-		ScoreForKillingMe = 10;
-
-		// set speed
-		Speed = 0.8f;
-
-		// set health
-		TotalHealth = 2;
-		Health = TotalHealth;
-
 		XVelocity = 0f;
 		YVelocity = 0f;
 
 	} // Awake()
+
+
+	/*=========================== Start() ===================================================*/
+
+	void Start(){
+
+		Health = TotalHealth;
+
+	} // Start()
 
 
 	/*=========================== Update() ===================================================*/

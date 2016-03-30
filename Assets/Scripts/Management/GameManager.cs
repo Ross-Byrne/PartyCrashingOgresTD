@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 
 
 	// GameObjects
-	GameObject pathLayout;
+	public GameObject pathLayout;
 
 
 	// Variables
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour {
 	void Start(){
 
 		// spawn an enemy every 1 secs
-		InvokeRepeating ("SpawnEnemy", 1f, enemySpawnerSpeed);
+		GetComponent<EnemySpawner>().SpawnEnemy(1);
 
 	} // Start()
 
@@ -77,23 +77,7 @@ public class GameManager : MonoBehaviour {
 
 		} // if
 
-	
-	
 	} // Update()
-
-
-	/*=========================== SpawnEnemy() ===================================================*/
-
-	// spawns enemies at the starting point 
-	private void SpawnEnemy(){
-
-		// instantiate an enemy
-		GameObject enemy = (GameObject)Instantiate (enemyPrefab);
-
-		// position the enemy on the paths starting tile
-		enemy.transform.position = pathLayout.GetComponent<Path> ().PathStart.transform.position;
-
-	} // SpawnEnemy()
 
 
 	/*=========================== SetUpUI() ===================================================*/
