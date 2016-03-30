@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	// Variables
 
-	private bool SpawningEnemies = false;
+	public float EnemySpawnerSpeed { get; set; } // time to wait before next spawn
 
 
 	/*=========================== Methods ===================================================*/
@@ -16,13 +16,11 @@ public class EnemySpawner : MonoBehaviour {
 
 	void Awake () {
 	
+		// initialise variables
+
+		EnemySpawnerSpeed = 1.8f;
 
 	} // Awake()
-	
-
-	void Update () {
-	
-	}
 
 
 	/*=========================== SpawnEnemy() ===================================================*/
@@ -58,7 +56,6 @@ public class EnemySpawner : MonoBehaviour {
 		} // if
 
 	} // SpawnEnemy()
+		
 
-
-	//IEnumerator 
 } // class

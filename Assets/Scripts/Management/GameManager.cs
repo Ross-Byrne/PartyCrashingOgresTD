@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour {
 
 
 	// Variables
-	int gameLevel;
-	float enemySpawnerSpeed; // time to wait before next spawn
+	public int GameLevel {get; set; }
+
 	public int gameScore;
 
 
@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour {
 
 		pathLayoutPrefab = (GameObject)Resources.Load ("Prefabs/PathLayout1");
 
-
 		// get references to UI
 
 		scoreText = GameObject.Find ("ScoreText").GetComponent<Text>();
@@ -51,8 +50,7 @@ public class GameManager : MonoBehaviour {
 
 		// Initialise Variables
 
-		gameLevel = 1;
-		enemySpawnerSpeed = 1.8f;
+		GameLevel = 1;
 		gameScore = 0;
 
 		// Setup the games UI
@@ -69,7 +67,10 @@ public class GameManager : MonoBehaviour {
 	void Start(){
 
 		// spawn an enemy every 1 secs
-		GetComponent<EnemySpawner>().SpawnEnemy(2);
+		//GetComponent<EnemySpawner>().SpawnEnemy(2);
+
+		// start game
+		GetComponent<EnemyWaveController>().gameHasStarted = true;
 
 	} // Start()
 

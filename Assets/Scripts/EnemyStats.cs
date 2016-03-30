@@ -15,7 +15,7 @@ public class EnemyStats : MonoBehaviour {
 
 	public float EnemyLvl1Speed { get; set; }
 	public float EnemyLvl2Speed { get; set; }
-	public float EnemyLvl3Speed { get; set; }
+	public float EnemyLvl3Speed { get; set; }		
 	public float EnemyLvl4Speed { get; set; }
 	public float EnemyLvl5Speed { get; set; }
 
