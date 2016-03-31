@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
 	public int GameScore { get; set; }
 	public int CastleHealth { get; set; }
 	private int totalCastleHealth;
+	private float timeBetweenWaves = 30f;	// 30 seconds
 
 
 	/*=========================== Methods ===================================================*/
