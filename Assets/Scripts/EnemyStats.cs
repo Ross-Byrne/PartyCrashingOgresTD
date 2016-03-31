@@ -40,7 +40,7 @@ public class EnemyStats : MonoBehaviour {
 		EnemyLvl4TotalHeath = 6;
 		EnemyLvl5TotalHeath = 10;
 
-		EnemyLvl1Speed = 0.8f;
+		EnemyLvl1Speed = 1f;
 		EnemyLvl2Speed = 1f;
 		EnemyLvl3Speed = 1.4f;
 		EnemyLvl4Speed = 0.68f;

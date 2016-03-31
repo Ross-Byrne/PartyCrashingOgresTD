@@ -17,15 +17,16 @@ public class GameManager : MonoBehaviour {
 
 	// GameObjects
 	public GameObject pathLayout;
-	private Image castleHealthBar;
+	public Image castleHealthBar;
 
 
 	// Variables
 	public int GameLevel {get; set; }
 	public int GameScore { get; set; }
-	public int CastleHealth { get; set; }
+	private int castleHealth;
 	private int totalCastleHealth;
 	private float timeBetweenWaves = 30f;	// 30 seconds
+	private bool gameOver = false;
 
 
 	/*=========================== Methods ===================================================*/
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour {
 		GameLevel = 1;
 		GameScore = 0;
 		totalCastleHealth = 100;
-		CastleHealth = totalCastleHealth;
+		castleHealth = totalCastleHealth;
 
 		// Setup the games UI
 		SetUpUI();
@@ -69,7 +70,7 @@ public class GameManager : MonoBehaviour {
 		// spawn an enemy every 1 secs
 		//GetComponent<EnemySpawner>().SpawnEnemy(2);
 
-		// start game
+		// start game=
 		GetComponent<EnemyWaveController>().gameHasStarted = true;
 
 	} // Start()
@@ -86,15 +87,6 @@ public class GameManager : MonoBehaviour {
 
 			// update the score
 			scoreText.text = "Score: " + GameScore.ToString ();
-
-		} // if
-
-
-		// check if the game is over
-		if (CastleHealth <= 0) {
-
-			// It's Game Over
-			Debug.Log("It's Game Over!");
 
 		} // if
 
@@ -129,6 +121,29 @@ public class GameManager : MonoBehaviour {
 		towerFiveButton.interactable = isInteractable;
 
 	} // EnableDisableTowerUI()
+
+
+	/*=========================== DamangeCastle() ===================================================*/
+
+	// applies damage to the castle when an enemy gets destroyed at right border
+	public void DamangeCastle(int damage){
+
+		// decrease Castle Health
+		castleHealth -= damage;
+
+		// reduce castle health bar
+		castleHealthBar.fillAmount = (float)castleHealth / totalCastleHealth;
+
+		if (castleHealth <= 0) {
+
+			// its game over
+			gameOver = true;
+
+			Debug.Log ("It's Game Over!");
+
+		} // if
+
+	} // DamangeCastle()
 
 
 } // class
