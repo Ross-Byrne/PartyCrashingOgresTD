@@ -48,6 +48,8 @@ public class EnemyWaveController : MonoBehaviour {
 
 	void Update () {
 	
+		// control when waves start and finish in gameManager?
+
 		if (gameHasStarted == true && waveOver == true) {
 
 			// start wave (based on game level)
