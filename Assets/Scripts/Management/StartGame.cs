@@ -41,12 +41,6 @@ public class StartGame : MonoBehaviour {
 		// get reference to saveManager
 		saveManager = GetComponent<SaveGameDataManager>();
 
-		// load game data
-		saveManager.Load();
-
-		// get current username
-		usernameInput.text = saveManager.currentUsername;
-
 	} // Awake()
 
 
@@ -54,7 +48,11 @@ public class StartGame : MonoBehaviour {
 
 	void Start(){
 
+		// load game data
+		saveManager.Load();
 
+		// get current username
+		usernameInput.text = saveManager.currentUsername;
 
 	} // Start()
 

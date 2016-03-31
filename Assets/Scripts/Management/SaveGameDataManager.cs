@@ -9,28 +9,27 @@ public class SaveGameDataManager : MonoBehaviour {
 
 	/*=========================== Member Variables ===================================================*/
 
-	private static string FILE_NAME = "PartyCrashingOgresTD.dat";
+	private const int MAX_USER_SCORES = 10;
 
 	// save the current username
 	public string currentUsername;
 
-	// save the collection of usenames and their scores
-	public Dictionary<string, int> highScores = new Dictionary<string, int>(10);
+	// save array of top 10 usernames
+	public string[] usernames;
 
-	private string[] usernames;
+	// top 10 scores for users
+	public int[] scores;
 
 
 	/*=========================== Methods ===================================================*/
 
-	/*=========================== Awake() ===================================================*/
-
 	void Awake(){
 
-		// adds all dictionary keys to array
-		//userScores.Keys.CopyTo (usernames, 0);
+		// initial arrays
+		usernames = new string[MAX_USER_SCORES];
+		scores = new int[MAX_USER_SCORES];
 
 	} // Awake()
-
 
 	/*=========================== Save() ===================================================*/
 
@@ -39,6 +38,20 @@ public class SaveGameDataManager : MonoBehaviour {
 
 		// save current username
 		PlayerPrefs.SetString("currentUsername", currentUsername);
+
+		for (int i = 0; i < usernames.Length; i++) {
+
+			// save username
+			PlayerPrefs.SetString("User" + i, usernames[i]);
+
+		} // for
+			
+		for (int i = 0; i < scores.Length; i++) {
+
+			// save score
+			PlayerPrefs.SetInt("Score" + i, scores[i]);
+
+		} // for
 
 		// save prefs
 		PlayerPrefs.Save();
@@ -56,7 +69,41 @@ public class SaveGameDataManager : MonoBehaviour {
 			// get current user
 			currentUsername = PlayerPrefs.GetString("currentUsername");
 
-		}
+		} // if
+			
+		// loop through to get users
+		for (int i = 0; i < MAX_USER_SCORES; i++) {
+
+			// check if users are there
+			if (PlayerPrefs.HasKey ("User" + i.ToString())) {
+
+				// get value
+				usernames [i] = PlayerPrefs.GetString ("User" + i.ToString());
+
+			} else { // if highest user isn't there, no other ones after will be there etc.
+
+				// break out of loop
+				break;
+
+			} // if
+		} // for
+
+		// loop through to get high scores
+		for (int i = 0; i < MAX_USER_SCORES; i++) {
+
+			// check if scores are there
+			if (PlayerPrefs.HasKey ("Score" + i.ToString())) {
+
+				// get value
+				scores [i] = PlayerPrefs.GetInt ("Score" + i.ToString());
+
+			} else { // if highest score isn't there, no other ones after will be there etc.
+
+				// break out of loop
+				break;
+
+			} // if
+		} // for
 
 	} // Load
 
