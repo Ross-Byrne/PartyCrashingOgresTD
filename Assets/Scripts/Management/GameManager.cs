@@ -6,10 +6,6 @@ public class GameManager : MonoBehaviour {
 
 	/*=========================== Member Variables ===================================================*/
 
-	// Prefabs
-	private GameObject pathLayoutPrefab;
-
-
 	// UI
 	private Text scoreText;
 	private Button towerOneButton;
@@ -21,12 +17,14 @@ public class GameManager : MonoBehaviour {
 
 	// GameObjects
 	public GameObject pathLayout;
+	private Image castleHealthBar;
 
 
 	// Variables
 	public int GameLevel {get; set; }
-
-	public int gameScore;
+	public int GameScore { get; set; }
+	public int CastleHealth { get; set; }
+	private int totalCastleHealth;
 
 
 	/*=========================== Methods ===================================================*/
@@ -34,10 +32,6 @@ public class GameManager : MonoBehaviour {
 	/*=========================== Awake() ===================================================*/
 
 	void Awake(){
-
-		// get reference to pathLayoutPrefab
-
-		pathLayoutPrefab = (GameObject)Resources.Load ("Prefabs/PathLayout1");
 
 		// get references to UI
 
@@ -48,16 +42,21 @@ public class GameManager : MonoBehaviour {
 		towerFourButton = GameObject.Find ("TowerFourButton").GetComponent<Button>();
 		towerFiveButton = GameObject.Find ("TowerFiveButton").GetComponent<Button>();
 
+		// get reference to castle health bar image
+		castleHealthBar = GameObject.Find("CastleHealthBar").GetComponent<Image>();
+
 		// Initialise Variables
 
 		GameLevel = 1;
-		gameScore = 0;
+		GameScore = 0;
+		totalCastleHealth = 100;
+		CastleHealth = totalCastleHealth;
 
 		// Setup the games UI
 		SetUpUI();
 
 		// instantiate the pathLayout
-		pathLayout = (GameObject)Instantiate (pathLayoutPrefab);
+		pathLayout = (GameObject)Instantiate ((GameObject)Resources.Load ("Prefabs/PathLayout1"));
 
 	} // Awake()
 
@@ -82,10 +81,19 @@ public class GameManager : MonoBehaviour {
 		// Update the UI
 
 		// check if the score has changed
-		if (gameScore != int.Parse(scoreText.text.Substring (7))) { // subString(7) to get rid of "Score: "
+		if (GameScore != int.Parse(scoreText.text.Substring (7))) { // subString(7) to get rid of "Score: "
 
 			// update the score
-			scoreText.text = "Score: " + gameScore.ToString ();
+			scoreText.text = "Score: " + GameScore.ToString ();
+
+		} // if
+
+
+		// check if the game is over
+		if (CastleHealth <= 0) {
+
+			// It's Game Over
+			Debug.Log("It's Game Over!");
 
 		} // if
 

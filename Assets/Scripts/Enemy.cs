@@ -149,7 +149,7 @@ public class Enemy : MonoBehaviour {
 	private void KillEnemy(){
 
 		// add the score for being killed
-		GameObject.Find("_GameManager").GetComponent<GameManager>().gameScore += ScoreForKillingMe;
+		GameObject.Find("_GameManager").GetComponent<GameManager>().GameScore += ScoreForKillingMe;
 
 		// kill the enemy
 		Destroy (gameObject);
