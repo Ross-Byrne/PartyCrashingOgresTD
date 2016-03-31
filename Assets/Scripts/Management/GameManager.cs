@@ -21,11 +21,13 @@ public class GameManager : MonoBehaviour {
 
 
 	// Variables
+	public bool GameHasStarted { get; set; }
 	public int GameLevel {get; set; }
 	public int GameScore { get; set; }
+	public int EnemiesAlive { get; set; }
 	private int castleHealth;
 	private int totalCastleHealth;
-	private float timeBetweenWaves = 30f;	// 30 seconds
+	private float timeBetweenWaves = 10f;	// 30 seconds
 	private bool gameOver = false;
 
 
@@ -70,8 +72,8 @@ public class GameManager : MonoBehaviour {
 		// spawn an enemy every 1 secs
 		//GetComponent<EnemySpawner>().SpawnEnemy(2);
 
-		// start game=
-		GetComponent<EnemyWaveController>().gameHasStarted = true;
+		// start game
+		GameHasStarted = true;
 
 	} // Start()
 
@@ -89,6 +91,39 @@ public class GameManager : MonoBehaviour {
 			scoreText.text = "Score: " + GameScore.ToString ();
 
 		} // if
+
+
+		if (EnemiesAlive == 0 && GameHasStarted == true && gameOver == false) {
+
+			Debug.Log ("Wave in Finished");
+
+			// flag wave as over
+			GetComponent<EnemyWaveController> ().waveOver = true;
+
+			Debug.Log ("Wave Over");
+
+			if (GameLevel < 5) {
+				
+				// move to next level
+				GameLevel++;
+
+				// start next wave
+				StartCoroutine(StartNextWave());
+
+				// to stop if triggering
+				EnemiesAlive = -1;
+
+			} else { // game is finished
+
+				// game is over
+				gameOver = true;
+
+				Debug.Log ("It's Game Over!");
+
+			} // if
+
+		} // if
+
 
 	} // Update()
 
@@ -144,6 +179,34 @@ public class GameManager : MonoBehaviour {
 		} // if
 
 	} // DamangeCastle()
+
+
+	/*=========================== StartNextWave() ===================================================*/
+
+	// waits a certain amount of time and then starts the next wave
+	IEnumerator StartNextWave(){
+
+		int count = 0;
+
+		// wait for next wave to start
+
+		while (count < timeBetweenWaves) {
+
+			// print to count down timer on screen
+			Debug.Log("Time Til Next Wave: " + (timeBetweenWaves - count) + " Seconds.");
+
+			// wait a second
+			yield return new WaitForSeconds (1f);
+
+			// increament count
+			count++;
+
+		} // while
+
+		// start Next Wave
+		StartCoroutine(GetComponent<EnemyWaveController>().StartWave(GameLevel -1));
+
+	} // StartNextWave()
 
 
 } // class

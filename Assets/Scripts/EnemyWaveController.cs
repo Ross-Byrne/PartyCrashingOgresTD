@@ -15,8 +15,9 @@ public class EnemyWaveController : MonoBehaviour {
 	// an array of arrays to hold the different waves
 	int[][] waves;
 
-	public bool gameHasStarted = false;
-	bool waveOver = true;
+	GameManager gameManager;
+
+	public bool waveOver = true;
 
 
 	/*=========================== Methods ===================================================*/
@@ -28,6 +29,9 @@ public class EnemyWaveController : MonoBehaviour {
 		// an array of arrays to hold the different waves
 		waves = new int[][] { wave1, wave2, wave3, wave4, wave5 };
 
+		// get reference to gameManager
+		gameManager = GetComponent<GameManager>();
+
 	} // Awake()
 
 
@@ -36,7 +40,7 @@ public class EnemyWaveController : MonoBehaviour {
 	void Start(){
 
 		// start wave (based on game level) -1 because 0 index
-		StartCoroutine(StartWave(GetComponent<GameManager>().GameLevel -1));
+		StartCoroutine(StartWave(gameManager.GameLevel -1));
 
 		// wave have started
 		waveOver = false;
@@ -50,7 +54,7 @@ public class EnemyWaveController : MonoBehaviour {
 	
 		// control when waves start and finish in gameManager?
 
-		if (gameHasStarted == true && waveOver == true) {
+		if (gameManager.GameHasStarted == true && waveOver == true) {
 
 			// start wave (based on game level)
 			//StartCoroutine(StartWave(GetComponent<GameManager>().GameLevel));
@@ -66,10 +70,13 @@ public class EnemyWaveController : MonoBehaviour {
 	/*=========================== StartWave() ===================================================*/
 
 	// starts spawning enemies for wave number passed in
-	IEnumerator StartWave(int waveNum){
+	public IEnumerator StartWave(int waveNum){
 
 		Debug.Log ("Number of Waves: " + waves.Length);
-		Debug.Log ("Enemies in wave " + waveNum + ": " + waves[waveNum].Length);
+		Debug.Log ("Enemies in wave " + (waveNum + 1) + ": " + waves[waveNum].Length);
+
+		// tell manager how manay enemies are alive
+		gameManager.EnemiesAlive = waves[gameManager.GameLevel -1].Length;
 
 		// loop through the wave and spawn the enemy
 		for(int i = 0; i < waves[waveNum].Length; i++){
@@ -81,14 +88,6 @@ public class EnemyWaveController : MonoBehaviour {
 			yield return new WaitForSeconds (GetComponent<EnemySpawner>().EnemySpawnerSpeed);
 
 		} // for
-
-		// wave over
-		waveOver = true;
-
-		// move to next level
-		GetComponent<GameManager> ().GameLevel++;
-
-		Debug.Log ("Wave Over.");
 			
 	} // StartWave()
 

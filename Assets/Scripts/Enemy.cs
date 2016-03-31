@@ -151,6 +151,9 @@ public class Enemy : MonoBehaviour {
 		// add the score for being killed
 		GameObject.Find("_GameManager").GetComponent<GameManager>().GameScore += ScoreForKillingMe;
 
+		// reduce EnemiesAlive by one
+		GameObject.Find("_GameManager").GetComponent<GameManager>().EnemiesAlive--;
+
 		// kill the enemy
 		Destroy (gameObject);
 
