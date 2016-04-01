@@ -72,14 +72,6 @@ public class StartGame : MonoBehaviour {
 		// get current username
 		usernameInput.text = saveManager.currentUsername;
 
-
-		Debug.Log ("===================================================");
-
-		// print out leaderboard
-		leaderBoard.PrintLeaderBoard(saveManager.usernames, saveManager.scores);
-
-		Debug.Log ("===================================================");
-
 	} // Start()
 
 

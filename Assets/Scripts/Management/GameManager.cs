@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
 	// GameObjects
 	public GameObject pathLayout;
 	public Image castleHealthBar;
+	public GameObject settingsMenu;
 
 	private SaveGameDataManager saveManager;
 
@@ -245,6 +246,14 @@ public class GameManager : MonoBehaviour {
 	// onclick method for settings button
 	public void SettingsButtonClick(){
 
+		// pause the game
+		Time.timeScale = 0f;
+
+		// open settings menu
+		settingsMenu.SetActive(true);
+
+		// make settings button non interactable
+		settingsButton.interactable = false;
 
 	} // SettingsButtonClick()
 
