@@ -105,7 +105,7 @@ public class DefenceTower : MonoBehaviour {
 
 	} // ScanningForEnemies()
 
-
+		
 	/*=========================== OnTriggerStay2D() ===================================================*/
 
 	// runs when object is colliding

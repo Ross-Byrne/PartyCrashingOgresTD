@@ -60,24 +60,43 @@ public class DefenceTowerSpawner : MonoBehaviour {
 			// if tower is spawned but not placed
 			if (towerIsSpawned && !towerIsPlaced) {
 
-				// flag tower as placed
-				towerIsPlaced = true;
+				// check if the mouse is over a path
 
-				// set tower is spawned to false
-				towerIsSpawned = false;
+				// so the raycast ignores layer 8
+				// REF: http://docs.unity3d.com/Manual/Layers.html
+				LayerMask layerMask = 1 << 8;
+				layerMask = ~layerMask;
 
-				// hide towerRangeSprite
-				currentSpawnedTower.GetComponent<DefenceTower>().DisableTowerRange();
+				// perform a raycast hit
+				RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, layerMask);
 
-				// flag tower as being able to shoot
-				currentSpawnedTower.GetComponent<DefenceTower>().CanShoot = true;
+				// if the raycast hits a path
+				if (hit.collider != null ){
 
-				// clear placed tower's reference
-				currentSpawnedTower = null;
+					// do nothing
+					// cannot place on a path
 
-				// enable tower spawning ui
-				gameObject.GetComponent<GameManager>().EnableDisableTowerUI(true);
+				} else { // otherwise
+					
+					// flag tower as placed
+					towerIsPlaced = true;
 
+					// set tower is spawned to false
+					towerIsSpawned = false;
+
+					// hide towerRangeSprite
+					currentSpawnedTower.GetComponent<DefenceTower>().DisableTowerRange();
+
+					// flag tower as being able to shoot
+					currentSpawnedTower.GetComponent<DefenceTower>().CanShoot = true;
+
+					// clear placed tower's reference
+					currentSpawnedTower = null;
+
+					// enable tower spawning ui
+					gameObject.GetComponent<GameManager>().EnableDisableTowerUI(true);
+
+				} // if
 			} // if
 		} // if
 
