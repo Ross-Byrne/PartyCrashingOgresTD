@@ -35,6 +35,9 @@ public class ObjectDestroyer : MonoBehaviour {
 				// Damage Castle Health
 				gameManager.GetComponent<GameManager>().DamangeCastle(other.GetComponent<Enemy>().ScoreForKillingMe);
 
+				// count enemy as dead
+				gameManager.GetComponent<GameManager>().EnemiesAlive--;
+
 			} // if
 
 		} // if

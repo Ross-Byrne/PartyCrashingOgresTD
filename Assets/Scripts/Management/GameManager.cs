@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -13,12 +14,14 @@ public class GameManager : MonoBehaviour {
 	private Button towerThreeButton;
 	private Button towerFourButton;
 	private Button towerFiveButton;
+	private Button settingsButton;
 
 
 	// GameObjects
 	public GameObject pathLayout;
 	public Image castleHealthBar;
 
+	private SaveGameDataManager saveManager;
 
 	// Variables
 	public bool GameHasStarted { get; set; }
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour {
 		towerThreeButton = GameObject.Find ("TowerThreeButton").GetComponent<Button>();
 		towerFourButton = GameObject.Find ("TowerFourButton").GetComponent<Button>();
 		towerFiveButton = GameObject.Find ("TowerFiveButton").GetComponent<Button>();
+		settingsButton = GameObject.Find ("SettingsButton").GetComponent<Button>();
 
 		// get reference to castle health bar image
 		castleHealthBar = GameObject.Find("CastleHealthBar").GetComponent<Image>();
@@ -62,6 +66,9 @@ public class GameManager : MonoBehaviour {
 		// instantiate the pathLayout
 		pathLayout = (GameObject)Instantiate ((GameObject)Resources.Load ("Prefabs/PathLayout1"));
 
+		// get a reference to saveManager
+		saveManager = GetComponent<SaveGameDataManager>();
+
 	} // Awake()
 
 
@@ -70,7 +77,7 @@ public class GameManager : MonoBehaviour {
 	void Start(){
 
 		// load game data
-		GetComponent<SaveGameDataManager>().Load();
+		saveManager.Load();
 
 		// start game
 		GameHasStarted = true;
@@ -142,6 +149,9 @@ public class GameManager : MonoBehaviour {
 		towerThreeButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(3));
 		towerFourButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(4));
 		towerFiveButton.onClick.AddListener (() => gameObject.GetComponent<DefenceTowerSpawner>().SpawnDefenceTower(5));
+
+		// add onclick method to settings button
+		settingsButton.onClick.AddListener(() => SettingsButtonClick());
 
 	} // SetUpUI()
 
@@ -221,10 +231,33 @@ public class GameManager : MonoBehaviour {
 	void GameOver(){
 
 
-		// save the username and score to the leaderboard
+		// add the username and score to the leaderboard
+		GetComponent<LeaderBoard>().Add(saveManager.usernames, saveManager.scores, saveManager.currentUsername, GameScore);
 
+		// save the game data
+		saveManager.Save();
 
 	} // GameOver()
+
+
+	/*=========================== SettingsButtonClick() ===================================================*/
+
+	// onclick method for settings button
+	public void SettingsButtonClick(){
+
+
+	} // SettingsButtonClick()
+
+
+	/*=========================== QuitGame() ===================================================*/
+
+	// quits the game and returns to the startMenu
+	void QuitGame(){
+
+		// go back to the Start Menu
+		SceneManager.LoadScene("StartMenu");
+
+	} // QuitGame()
 
 
 } // class
