@@ -39,22 +39,29 @@ public class SaveGameDataManager : MonoBehaviour {
 		// save current username
 		PlayerPrefs.SetString("currentUsername", currentUsername);
 
-		for (int i = 0; i < usernames.Length; i++) {
+		// check that the arrays are the right size
+		if (usernames.Length == MAX_USER_SCORES && scores.Length == MAX_USER_SCORES) {
 
-			// save username
-			PlayerPrefs.SetString("User" + i, usernames[i]);
+			for (int i = 0; i < MAX_USER_SCORES; i++) {
 
-		} // for
-			
-		for (int i = 0; i < scores.Length; i++) {
+				// save username
+				PlayerPrefs.SetString ("User" + i, usernames [i]);
 
-			// save score
-			PlayerPrefs.SetInt("Score" + i, scores[i]);
+				// save score
+				PlayerPrefs.SetInt ("Score" + i, scores [i]);
 
-		} // for
+			} // for
 
-		// save prefs
-		PlayerPrefs.Save();
+			// save prefs
+			PlayerPrefs.Save ();
+
+		} else {
+
+			Debug.Log ("ERROR, Arrays are not the correct size!");
+
+			return;
+
+		} // if
 
 	} // Save()
 
@@ -67,43 +74,45 @@ public class SaveGameDataManager : MonoBehaviour {
 		if (PlayerPrefs.HasKey ("currentUsername")) {
 
 			// get current user
-			currentUsername = PlayerPrefs.GetString("currentUsername");
+			currentUsername = PlayerPrefs.GetString ("currentUsername");
+
+		} else { // otherwise
+
+			// current user name is left blank
+			currentUsername = "";
 
 		} // if
 			
-		// loop through to get users
-		for (int i = 0; i < MAX_USER_SCORES; i++) {
+		// check that the arrays are the right size
+		if (usernames.Length == MAX_USER_SCORES && scores.Length == MAX_USER_SCORES) {
 
-			// check if users are there
-			if (PlayerPrefs.HasKey ("User" + i.ToString())) {
+			// loop through to get usernames and scores
+			for (int i = 0; i < MAX_USER_SCORES; i++) {
 
-				// get value
-				usernames [i] = PlayerPrefs.GetString ("User" + i.ToString());
+				// check if users and scores are there
+				if (PlayerPrefs.HasKey ("User" + i.ToString()) && PlayerPrefs.HasKey ("Score" + i.ToString())) {
 
-			} else { // if highest user isn't there, no other ones after will be there etc.
+					// get value for username
+					usernames [i] = PlayerPrefs.GetString ("User" + i.ToString());
 
-				// break out of loop
-				break;
+					// get value for score
+					scores [i] = PlayerPrefs.GetInt ("Score" + i.ToString());
 
-			} // if
-		} // for
+				} else { // if highest user or score isn't there, no other ones after will be there after it.
+					
+					// return, nothing else saved
+					return;
 
-		// loop through to get high scores
-		for (int i = 0; i < MAX_USER_SCORES; i++) {
+				} // if
+			} // for
 
-			// check if scores are there
-			if (PlayerPrefs.HasKey ("Score" + i.ToString())) {
+		} else {
 
-				// get value
-				scores [i] = PlayerPrefs.GetInt ("Score" + i.ToString());
+			Debug.Log ("ERROR, Arrays are not the correct size!");
 
-			} else { // if highest score isn't there, no other ones after will be there etc.
+			return;
 
-				// break out of loop
-				break;
-
-			} // if
-		} // for
+		} // if
 
 	} // Load
 

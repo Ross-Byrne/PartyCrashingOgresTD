@@ -69,8 +69,8 @@ public class GameManager : MonoBehaviour {
 
 	void Start(){
 
-		// spawn an enemy every 1 secs
-		//GetComponent<EnemySpawner>().SpawnEnemy(2);
+		// load game data
+		GetComponent<SaveGameDataManager>().Load();
 
 		// start game
 		GameHasStarted = true;
@@ -117,6 +117,9 @@ public class GameManager : MonoBehaviour {
 
 				// game is over
 				gameOver = true;
+
+				// handle gameover
+				GameOver();
 
 				Debug.Log ("It's Game Over!");
 
@@ -169,10 +172,13 @@ public class GameManager : MonoBehaviour {
 		// reduce castle health bar
 		castleHealthBar.fillAmount = (float)castleHealth / totalCastleHealth;
 
-		if (castleHealth <= 0) {
+		if (castleHealth <= 0 && gameOver == false) {
 
 			// its game over
 			gameOver = true;
+
+			// handle the gameover
+			GameOver ();
 
 			Debug.Log ("It's Game Over!");
 
@@ -213,6 +219,9 @@ public class GameManager : MonoBehaviour {
 
 	// handles what happens when the game is over
 	void GameOver(){
+
+
+		// save the username and score to the leaderboard
 
 
 	} // GameOver()
