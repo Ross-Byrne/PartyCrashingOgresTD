@@ -55,30 +55,37 @@ public class LeaderBoard : MonoBehaviour {
 		} // if
 
 	} // Add()
-
+		
 
 	/*=========================== PrintLeaderBoard() ===================================================*/
 
-	// prints leaderboard into console
-	public void PrintLeaderBoard(string[] usernames, int[] scores){
+	// returns a string that contains the leaderboard info
+	public string PrintLeaderBoard(string[] usernames, int[] scores){
+
+		string str = "=========================";
 
 		if(usernames.Length == MAX_USER_SCORES && scores.Length == MAX_USER_SCORES){
 
 			// loop through arrays
 			for(int i = 0; i < MAX_USER_SCORES; i++){
 
-				// print out content into console
-				Debug.Log ((i + 1) + ": Username: " + usernames[i] + " Score: " + scores[i]);
+				// build string
+				str += string.Format("\n\n{0,-2}: Username: {1}\n     Score: {2}", (i + 1), usernames[i], scores[i]);
 
 			} // for
+
+			str += "\n\n=========================";
+
+			return str;
 
 		} else {
 
 			Debug.Log ("ERROR, Arrays not correct size!");
 
-			return;
+			return "";
 		} // if
 
 	} // PrintLeaderBoard()
+
 
 } // class

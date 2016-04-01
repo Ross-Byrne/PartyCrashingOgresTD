@@ -12,13 +12,19 @@ public class StartGame : MonoBehaviour {
 	// UI
 	private InputField usernameInput;
 	private Button playButton;
+	private Button leaderboardButton;
 	private Button quitButton;
 
 	// save manager
 	SaveGameDataManager saveManager;
+	LeaderBoard leaderBoard;
 
 	// Variables
 	private string username;
+
+	// for leaderboardPanel
+	private float lbPanelWidth;
+	private float lbPanelHeight;
 
 
 	/*=========================== Methods ===================================================*/
@@ -27,19 +33,31 @@ public class StartGame : MonoBehaviour {
 
 	void Awake(){
 
+		// initialise variables
+
+		lbPanelWidth = Screen.width * 0.28f; 	// width is 28% screen size
+		lbPanelHeight = Screen.height * 0.72f; 	// height is 72% screen height
+
 		// get reference to UI Elements
 		usernameInput = GameObject.Find ("UsernameInputField").GetComponent<InputField>();
 		playButton = GameObject.Find ("PlayButton").GetComponent<Button> ();
+		leaderboardButton = GameObject.Find ("LeaderboardButton").GetComponent<Button>();
 		quitButton = GameObject.Find ("QuitButton").GetComponent<Button>();
 
 		// add play game button onclick method
 		playButton.onClick.AddListener(() => PlayGame());
+
+		// add leaderboard button onclick method
+		leaderboardButton.onClick.AddListener(() => Leaderboard());
 
 		// add quit button onclick method
 		quitButton.onClick.AddListener(() => QuitGame());
 
 		// get reference to saveManager
 		saveManager = GetComponent<SaveGameDataManager>();
+
+		// get reference to leaderboard
+		leaderBoard = GetComponent<LeaderBoard>();
 
 	} // Awake()
 
@@ -58,7 +76,7 @@ public class StartGame : MonoBehaviour {
 		Debug.Log ("===================================================");
 
 		// print out leaderboard
-		GetComponent<LeaderBoard>().PrintLeaderBoard(saveManager.usernames, saveManager.scores);
+		leaderBoard.PrintLeaderBoard(saveManager.usernames, saveManager.scores);
 
 		Debug.Log ("===================================================");
 
@@ -82,7 +100,42 @@ public class StartGame : MonoBehaviour {
 	} // PlayGame()
 
 
-	/*=========================== Update() ===================================================*/
+	/*=========================== Leaderboard() ===================================================*/
+
+	// onclick method for the Leaderboard Button
+	public void Leaderboard(){
+
+
+		// instantiate leaderboard Prefab
+		GameObject leaderboardPanel = (GameObject)Instantiate ((GameObject)Resources.Load ("Prefabs/LeaderboardPanel"));
+
+		// make leaderboardPanel inactive
+		leaderboardPanel.SetActive(false);
+
+		// get reference to canvas
+		GameObject canvas = GameObject.Find("Canvas");
+
+		// set canvas as leaderboards parent
+		leaderboardPanel.transform.SetParent(canvas.transform);
+
+		RectTransform r = leaderboardPanel.GetComponent<RectTransform> ();
+
+		// set width and height
+		r.sizeDelta = new Vector2(lbPanelWidth, lbPanelHeight);
+
+		// anchor the UI Element to the center of the screen
+		r.anchoredPosition = new Vector2 (0, 0);
+
+		// set text on leaderboard
+		leaderboardPanel.GetComponent<LeaderBoardPanel>().contentText.text = leaderBoard.PrintLeaderBoard(saveManager.usernames, saveManager.scores);
+
+		// show the leaderboard panel
+		leaderboardPanel.SetActive(true);
+
+	} // Leaderboard()
+
+
+	/*=========================== QuitGame() ===================================================*/
 
 	// onclick method for QuitGame Button
 	public void QuitGame(){
