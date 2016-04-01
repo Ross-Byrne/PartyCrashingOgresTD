@@ -8,6 +8,7 @@ public class DefenceTower : MonoBehaviour {
 	[SerializeField] GameObject projectilePrefab;
 	[SerializeField] Transform[] projectileSpawnerTransforms;
 	public GameObject defenceTower;
+	public GameObject towerRangeSprite;
 	public GameObject enemyTarget;
 
 	private float towerRange;
@@ -32,7 +33,7 @@ public class DefenceTower : MonoBehaviour {
 	bool isScanningForEnemies = true;
 	bool isShooting = false;
 	bool hasEnemyLock = false;
-
+	public bool CanShoot { get; set; }
 
 	/*=========================== Methods ===================================================*/
 
@@ -41,16 +42,14 @@ public class DefenceTower : MonoBehaviour {
 	void Awake () {
 
 		// Set variable values
-	//	towerRange = 2.5f;
-	//	projectileSpeed = 5f;
-	//	fireRate = 1.2f;
+
 		isScanningForEnemies = true;
+
+		// cant shoot once spawned, only once placed
+		CanShoot = false;
 
 		// get reference to gameObject
 		defenceTower = gameObject;
-
-		// set the radius of the tower circle collider to set its range
-		//GetComponent<CircleCollider2D> ().radius = towerRange;
 	
 	} // Awake()
 
@@ -92,7 +91,7 @@ public class DefenceTower : MonoBehaviour {
 		while (isScanningForEnemies) {
 			
 			// check if meant to be shooting
-			if (isShooting) { // if yes
+			if (isShooting == true && CanShoot == true) { // if yes
 
 				// spawn projectile
 				SpawnProjectile ();
@@ -180,6 +179,16 @@ public class DefenceTower : MonoBehaviour {
 		} // for
 
 	} // SpawnProjectile()
+		
+
+	/*=========================== DisableTowerRange() ===================================================*/
+
+	public void DisableTowerRange(){
+
+		// disable the tower range sprite
+		towerRangeSprite.SetActive(false);
+
+	} // DisableTowerRange()
 		
 
 } // class

@@ -66,6 +66,12 @@ public class DefenceTowerSpawner : MonoBehaviour {
 				// set tower is spawned to false
 				towerIsSpawned = false;
 
+				// hide towerRangeSprite
+				currentSpawnedTower.GetComponent<DefenceTower>().DisableTowerRange();
+
+				// flag tower as being able to shoot
+				currentSpawnedTower.GetComponent<DefenceTower>().CanShoot = true;
+
 				// clear placed tower's reference
 				currentSpawnedTower = null;
 
