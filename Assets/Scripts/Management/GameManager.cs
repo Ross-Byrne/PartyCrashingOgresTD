@@ -209,4 +209,13 @@ public class GameManager : MonoBehaviour {
 	} // StartNextWave()
 
 
+	/*=========================== StartNextWave() ===================================================*/
+
+	// handles what happens when the game is over
+	void GameOver(){
+
+
+	} // GameOver()
+
+
 } // class
