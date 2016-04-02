@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour {
 	
 		// initialise variables
 
-		EnemySpawnerSpeed = 1.8f;
+		EnemySpawnerSpeed = 2.8f;
 
 	} // Awake()
 

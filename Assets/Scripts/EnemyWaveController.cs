@@ -7,10 +7,10 @@ public class EnemyWaveController : MonoBehaviour {
 
 	// each int is an enemy number
 	int[] wave1 = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-	int[] wave2 = new int[] { 1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2 };
-	int[] wave3 = new int[] { 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 3, 2, 2, 1, 1, 2, 3, 3, 3, 3, 3, 3 };
-	int[] wave4 = new int[] { 1, 2, 3, 3, 3, 4, 4, 4, 3, 3, 3, 3, 3, 2, 2, 3, 3, 4, 4, 4 };
-	int[] wave5 = new int[] { 3, 4, 5, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 5 };
+	int[] wave2 = new int[] { 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+	int[] wave3 = new int[] { 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
+	int[] wave4 = new int[] { 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4 };
+	int[] wave5 = new int[] { 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5 };
 
 	// an array of arrays to hold the different waves
 	int[][] waves;

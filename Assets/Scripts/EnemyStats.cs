@@ -34,17 +34,17 @@ public class EnemyStats : MonoBehaviour {
 
 		// initialise Variables
 
-		EnemyLvl1TotalHeath = 1;
-		EnemyLvl2TotalHeath = 2;
-		EnemyLvl3TotalHeath = 4;
-		EnemyLvl4TotalHeath = 6;
-		EnemyLvl5TotalHeath = 10;
+		EnemyLvl1TotalHeath = 6;
+		EnemyLvl2TotalHeath = 8;
+		EnemyLvl3TotalHeath = 10;
+		EnemyLvl4TotalHeath = 18;
+		EnemyLvl5TotalHeath = 26;
 
 		EnemyLvl1Speed = 1f;
-		EnemyLvl2Speed = 1f;
-		EnemyLvl3Speed = 1.4f;
-		EnemyLvl4Speed = 0.68f;
-		EnemyLvl5Speed = 0.6f;
+		EnemyLvl2Speed = 1.4f;
+		EnemyLvl3Speed = 1.8f;
+		EnemyLvl4Speed = 1f;
+		EnemyLvl5Speed = 0.8f;
 
 		EnemyLvl1Score = 10;
 		EnemyLvl2Score = 20;

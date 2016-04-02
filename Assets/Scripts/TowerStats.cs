@@ -37,10 +37,10 @@ public class TowerStats : MonoBehaviour {
 
 		// initialise Variables
 
-		TowerLvl1FireRate = 0.8f;
-		TowerLvl2FireRate = 0.8f;
-		TowerLvl3FireRate = 0.8f;
-		TowerLvl4FireRate = 1.4f;
+		TowerLvl1FireRate = 1f;
+		TowerLvl2FireRate = 0.6f;
+		TowerLvl3FireRate = 1.6f;
+		TowerLvl4FireRate = 1.6f;
 		TowerLvl5FireRate = 0.8f;
 
 		TowerLvl1ProjectileSpeed = 7f;
