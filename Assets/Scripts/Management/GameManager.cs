@@ -7,6 +7,11 @@ public class GameManager : MonoBehaviour {
 
 	/*=========================== Member Variables ===================================================*/
 
+	// Twitter
+
+	private const string TWITTER_ADDRESS = "http://twitter.com/intent/tweet";
+	private const string TWEET_LANGUAGE = "en";
+
 	// UI
 	private Text scoreText;
 	private Button towerOneButton;
@@ -16,12 +21,12 @@ public class GameManager : MonoBehaviour {
 	private Button towerFiveButton;
 	private Button settingsButton;
 
-
 	// GameObjects
 	public GameObject pathLayout;
 	public Image castleHealthBar;
 	public GameObject settingsMenu;
 	public GameObject gamePromptPanel;
+	public GameObject gameOverPanel;
 
 	private SaveGameDataManager saveManager;
 
@@ -122,7 +127,7 @@ public class GameManager : MonoBehaviour {
 				gameOver = true;
 
 				// handle gameover
-				StartCoroutine(GameOver ());
+				GameOver ();
 
 				Debug.Log ("It's Game Over!");
 
@@ -182,7 +187,7 @@ public class GameManager : MonoBehaviour {
 			gameOver = true;
 
 			// handle the gameover
-			StartCoroutine(GameOver ());
+			GameOver ();
 
 			Debug.Log ("It's Game Over!");
 
@@ -249,38 +254,27 @@ public class GameManager : MonoBehaviour {
 	/*=========================== GameOver() ===================================================*/
 
 	// handles what happens when the game is over
-	IEnumerator GameOver(){
+	public void GameOver(){
 
 		int count = 0;
 
 		// clear game prompt text
 		gamePromptPanel.GetComponent<GamePromptPanel>().promptText.text = "";
 
-		// activate the prompt
-		gamePromptPanel.SetActive(true);
+		// Deactivate the prompt panel
+		gamePromptPanel.SetActive(false);
 
 		// add the username and score to the leaderboard
 		GetComponent<LeaderBoard>().Add(saveManager.usernames, saveManager.scores, saveManager.currentUsername, GameScore);
 
 		// save the game data
 		saveManager.Save();
+	
+		// set text on Game Over Panel
+		gameOverPanel.GetComponent<GameOverPanel>().gameOverText.text = "Your Score is: " + GameScore;
 
-		// wait a certain amount of time before going back to StartMenu
-		while(count < timeBetweenWaves){
-
-			// update game prompt text
-			gamePromptPanel.GetComponent<GamePromptPanel>().promptText.text = "Game Over! Score Saved, Returing To Start Menu In: " + (timeBetweenWaves - count) + " Seconds . . .";
-
-			// wait a second
-			yield return new WaitForSeconds (1f);
-
-			// increament count
-			count++;
-
-		} // while
-
-		// exit back to the start menu
-		QuitGame ();
+		// activate GameOver Panel
+		gameOverPanel.SetActive(true);
 
 	} // GameOver()
 
@@ -311,6 +305,25 @@ public class GameManager : MonoBehaviour {
 		SceneManager.LoadScene("StartMenu");
 
 	} // QuitGame()
+
+
+	/*=========================== ShareMessageToTwitter() ===================================================*/
+
+	// Shares game score to Twitter
+	// Found code to do this here: http://unity3dtrenches.blogspot.ie/2014/02/unity-3d-how-to-post-to-twitter-from.html
+	public void ShareMessageToTwitter(){
+
+		string message = "";
+
+		// create message
+		message = "I just got a Score of " + GameScore + " in Party Crashing Ogres Tower Defence!";
+
+		// Share message to twitter
+		Application.OpenURL(TWITTER_ADDRESS +
+			"?text=" + WWW.EscapeURL(message) +
+			"&amp;lang=" + WWW.EscapeURL(TWEET_LANGUAGE));
+
+	} // ShareToTwitterClick()
 
 
 } // class
