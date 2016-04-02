@@ -33,39 +33,7 @@ public class EnemyWaveController : MonoBehaviour {
 		gameManager = GetComponent<GameManager>();
 
 	} // Awake()
-
-
-	/*=========================== Start() ===================================================*/
-
-	void Start(){
-
-		// start wave (based on game level) -1 because 0 index
-		StartCoroutine(StartWave(gameManager.GameLevel -1));
-
-		// wave have started
-		waveOver = false;
-
-	} // Start()
-
-
-	/*=========================== Update() ===================================================*/
-
-	void Update () {
-	
-		// control when waves start and finish in gameManager?
-
-		if (gameManager.GameHasStarted == true && waveOver == true) {
-
-			// start wave (based on game level)
-			//StartCoroutine(StartWave(GetComponent<GameManager>().GameLevel));
-
-			// wave have started
-			//waveOver = false;
-
-		} // if
-
-	} // Update()
-
+		
 
 	/*=========================== StartWave() ===================================================*/
 

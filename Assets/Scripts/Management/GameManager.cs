@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject pathLayout;
 	public Image castleHealthBar;
 	public GameObject settingsMenu;
+	public GameObject gamePromptPanel;
 
 	private SaveGameDataManager saveManager;
 
@@ -100,16 +101,10 @@ public class GameManager : MonoBehaviour {
 
 		} // if
 
-
+		// check if there arent any enemies and the game is not over
 		if (EnemiesAlive == 0 && GameHasStarted == true && gameOver == false) {
 
-			Debug.Log ("Wave in Finished");
-
-			// flag wave as over
-			GetComponent<EnemyWaveController> ().waveOver = true;
-
-			Debug.Log ("Wave Over");
-
+			// if not last level
 			if (GameLevel < 5) {
 				
 				// move to next level
@@ -127,15 +122,13 @@ public class GameManager : MonoBehaviour {
 				gameOver = true;
 
 				// handle gameover
-				GameOver();
+				StartCoroutine(GameOver ());
 
 				Debug.Log ("It's Game Over!");
 
 			} // if
-
 		} // if
-
-
+			
 	} // Update()
 
 
@@ -189,7 +182,7 @@ public class GameManager : MonoBehaviour {
 			gameOver = true;
 
 			// handle the gameover
-			GameOver ();
+			StartCoroutine(GameOver ());
 
 			Debug.Log ("It's Game Over!");
 
@@ -204,12 +197,24 @@ public class GameManager : MonoBehaviour {
 	IEnumerator StartNextWave(){
 
 		int count = 0;
+		GamePromptPanel gamePrompt;
+
+		// get reference to the gamePromptPanel script
+		gamePrompt = gamePromptPanel.GetComponent<GamePromptPanel>();
+
+		// clear prompt text
+		gamePrompt.promptText.text = "";
+
+		// turn on game prompt panel
+		gamePromptPanel.SetActive (true);
 
 		// wait for next wave to start
 
-		while (count < timeBetweenWaves) {
+		while (count < timeBetweenWaves && gameOver == false) {
 
 			// print to count down timer on screen
+			gamePrompt.promptText.text = "Wave Starts In: " + (timeBetweenWaves - count) + " Seconds. . .";
+
 			Debug.Log("Time Til Next Wave: " + (timeBetweenWaves - count) + " Seconds.");
 
 			// wait a second
@@ -220,23 +225,62 @@ public class GameManager : MonoBehaviour {
 
 		} // while
 
-		// start Next Wave
-		StartCoroutine(GetComponent<EnemyWaveController>().StartWave(GameLevel -1));
+		// check if the game is over
+		if (gameOver == true) {
+
+			// do nothing, the game is over
+
+		} else {
+			
+			// start Next Wave
+			StartCoroutine (GetComponent<EnemyWaveController> ().StartWave (GameLevel - 1));
+
+			// clear prompt text
+			gamePrompt.promptText.text = "";
+
+			// turn off prompt
+			gamePromptPanel.SetActive (false);
+
+		} // if
 
 	} // StartNextWave()
 
 
-	/*=========================== StartNextWave() ===================================================*/
+	/*=========================== GameOver() ===================================================*/
 
 	// handles what happens when the game is over
-	void GameOver(){
+	IEnumerator GameOver(){
 
+		int count = 0;
+
+		// clear game prompt text
+		gamePromptPanel.GetComponent<GamePromptPanel>().promptText.text = "";
+
+		// activate the prompt
+		gamePromptPanel.SetActive(true);
 
 		// add the username and score to the leaderboard
 		GetComponent<LeaderBoard>().Add(saveManager.usernames, saveManager.scores, saveManager.currentUsername, GameScore);
 
 		// save the game data
 		saveManager.Save();
+
+		// wait a certain amount of time before going back to StartMenu
+		while(count < timeBetweenWaves){
+
+			// update game prompt text
+			gamePromptPanel.GetComponent<GamePromptPanel>().promptText.text = "Game Over! Score Saved, Returing To Start Menu In: " + (timeBetweenWaves - count) + " Seconds . . .";
+
+			// wait a second
+			yield return new WaitForSeconds (1f);
+
+			// increament count
+			count++;
+
+		} // while
+
+		// exit back to the start menu
+		QuitGame ();
 
 	} // GameOver()
 
