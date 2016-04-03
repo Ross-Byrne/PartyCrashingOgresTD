@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour {
 
 		GameLevel = 1;
 		GameScore = 0;
-		totalCastleHealth = 100;
+		totalCastleHealth = 200;
 		castleHealth = totalCastleHealth;
 
 		// Setup the games UI
@@ -153,6 +153,12 @@ public class GameManager : MonoBehaviour {
 				EnemiesAlive = -1;
 
 			} else { // game is finished
+
+				// set audioSource clip to wave finishing sound
+				audioSource.clip = finishingWave;
+
+				// play sound
+				audioSource.Play ();
 
 				// game is over
 				gameOver = true;

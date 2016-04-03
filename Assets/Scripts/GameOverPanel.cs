@@ -21,12 +21,12 @@ public class GameOverPanel : MonoBehaviour {
 
 	void Awake () {
 	
-		// add onclick methods to the buttons
-		shareToTwitterButton.onClick.AddListener (() => ShareToTwitterClick());
-		backToStartButton.onClick.AddListener (() => BackToStartClick());
-
 		// get reference to GameManager
 		gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+		// add onclick methods to the buttons
+		shareToTwitterButton.onClick.AddListener (() => ShareToTwitterClick());
+		backToStartButton.onClick.AddListener (() => gameManager.BackToStartMenu());
 
 	} // Awake()
 
@@ -40,17 +40,6 @@ public class GameOverPanel : MonoBehaviour {
 		gameManager.ShareMessageToTwitter();
 
 	} // ShareToTwitterClick()
-
-
-	/*=========================== BackToStartClick() ===================================================*/
-
-	// onclick method for the back to start button
-	public void BackToStartClick(){
-
-		// go back to start menu scene
-		SceneManager.LoadScene("StartMenu");
-
-	} // BackToStartClick()
 
 
 } // class
