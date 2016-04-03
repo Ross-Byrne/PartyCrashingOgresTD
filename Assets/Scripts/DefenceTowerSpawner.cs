@@ -10,6 +10,8 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 	// GameObjects
 	private GameObject currentSpawnedTower = null;
+	private AudioSource audioSource;
+	public AudioClip towerPlaced;
 
 
 	// Variables
@@ -24,8 +26,10 @@ public class DefenceTowerSpawner : MonoBehaviour {
 
 	void Awake(){
 
+		// get reference to audioSource
+		audioSource = GetComponent<AudioSource>();
+
 		// initialise Variables
-	
 		zValue = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
 
 	} // Awake()
@@ -77,7 +81,13 @@ public class DefenceTowerSpawner : MonoBehaviour {
 					// cannot place on a path
 
 				} else { // otherwise
-					
+
+					// set audioSource clip to wave finishing sound
+					audioSource.clip = towerPlaced;
+
+					// play sound
+					audioSource.Play ();
+
 					// flag tower as placed
 					towerIsPlaced = true;
 

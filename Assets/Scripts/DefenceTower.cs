@@ -10,6 +10,7 @@ public class DefenceTower : MonoBehaviour {
 	public GameObject defenceTower;
 	public GameObject towerRangeSprite;
 	public GameObject enemyTarget;
+	private AudioSource audioSource;
 
 	private float towerRange;
 
@@ -40,6 +41,9 @@ public class DefenceTower : MonoBehaviour {
 	/*=========================== Awake() ===================================================*/
 
 	void Awake () {
+
+		// get reference to audio source
+		audioSource = GetComponent<AudioSource>();
 
 		// Set variable values
 
@@ -175,6 +179,9 @@ public class DefenceTower : MonoBehaviour {
 
 			// make a child of projectile spawner
 			projectile.transform.SetParent (projectileSpawnerTransforms [i], true);
+
+			// play shooting sound effect
+			audioSource.Play();
 
 		} // for
 

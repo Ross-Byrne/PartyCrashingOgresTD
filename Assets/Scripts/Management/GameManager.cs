@@ -30,6 +30,11 @@ public class GameManager : MonoBehaviour {
 	public GameObject gameOverPanel;
 
 	private SaveGameDataManager saveManager;
+	private AudioSource audioSource;
+
+	// sound effects
+	public AudioClip finishingWave;
+	public AudioClip castleDamaged;
 
 	// Variables
 	public bool GameHasStarted { get; set; }
@@ -56,6 +61,9 @@ public class GameManager : MonoBehaviour {
 
 		// tell the sound manager to transition tracks to start playing main game music
 		soundManager.GetComponent<SoundManager>().TransitionTracks();
+
+		// get reference to gameManagers audio source
+		audioSource = GetComponent<AudioSource>();
 
 		// get references to UI
 
@@ -123,7 +131,18 @@ public class GameManager : MonoBehaviour {
 
 			// if not last level
 			if (GameLevel < 5) {
-				
+
+				// play if not the first level
+				if (GameLevel > 1) {
+					
+					// set audioSource clip to wave finishing sound
+					audioSource.clip = finishingWave;
+
+					// play sound
+					audioSource.Play ();
+
+				} // if
+
 				// move to next level
 				GameLevel++;
 
@@ -192,6 +211,12 @@ public class GameManager : MonoBehaviour {
 
 		// reduce castle health bar
 		castleHealthBar.fillAmount = (float)castleHealth / totalCastleHealth;
+
+		// set audioSource clip to damage sound
+		audioSource.clip = castleDamaged;
+
+		// play sound
+		audioSource.Play ();
 
 		if (castleHealth <= 0 && gameOver == false) {
 
