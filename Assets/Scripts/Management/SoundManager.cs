@@ -4,10 +4,13 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 // Script to manage the sound tracks in the game
+// this object is a Singleton, to allow music to play properly between scenes
 
 public class SoundManager : MonoBehaviour {
 
 	/*=========================== Member Variables ===================================================*/
+
+	public static SoundManager soundManager;
 
 	AudioSource source;
 	public AudioClip[] startMenuTracks;		// change to private
@@ -15,7 +18,7 @@ public class SoundManager : MonoBehaviour {
 
 	private int currentPlayingClip;
 	private float currentPlayingLength;
-	private bool isMainScene = false;
+	public bool isMainScene = false;
 	private bool isPlayingMusic = true;
 	private float curTime;
 	private float timeSinceClipStarted;
@@ -28,6 +31,23 @@ public class SoundManager : MonoBehaviour {
 	/*=========================== Awake() ===================================================*/
 
 	void Awake(){
+
+		// to make sure only one version of SoundManager exisits
+		// to enforce singleton patern
+		if (soundManager == null) {
+
+			// don't destroy gameobject when moving scenes
+			DontDestroyOnLoad (gameObject);
+
+			// set the reference to this object
+			soundManager = this;
+
+		} else if (soundManager != this) { // if the singleton already exists
+
+			// destroy this object
+			Destroy(gameObject);
+
+		} // if
 
 		// get a reference to the audio source
 		source = GameObject.Find("MusicPlayer").GetComponentInChildren<AudioSource> ();
@@ -46,7 +66,6 @@ public class SoundManager : MonoBehaviour {
 
 		// start playing the audio
 		TransitionTracks();
-
 
 	} // Start()
 
@@ -75,7 +94,7 @@ public class SoundManager : MonoBehaviour {
 	/*=========================== TransitionTracks() ===================================================*/
 
 	// transitions between two tracks
-	private void TransitionTracks(){
+	public void TransitionTracks(){
 
 		// flag as transitioning between tracks
 		transitioningTracks = true;
@@ -114,44 +133,6 @@ public class SoundManager : MonoBehaviour {
 		transitioningTracks = false;
 	
 	} // TransitionTracks()
-
-
-	// handles the contant playing of tracks
-	IEnumerator PlayTracks(){
-
-		while (isPlayingMusic) {
-			
-			// if main scene
-			if (isMainScene == true) {
-
-				// pick a random main track to play
-				source.clip = mainGameTracks[Random.Range (0, mainGameTracks.Length)];
-
-			} else { // if start scene
-
-				// pick a random start menu track to play
-				source.clip = startMenuTracks[Random.Range (0, startMenuTracks.Length)];
-
-			} // if
-				
-			// save length of clip
-			currentPlayingLength = source.clip.length;
-
-			// play it
-			source.Play ();
-
-			// fade in to playing clip
-			StartCoroutine(FadeIn());
-
-			// wait length of the clip minus a second
-			yield return new WaitForSeconds (currentPlayingClip - 1f);
-
-			// start to fade out of the playing clip
-			StartCoroutine(FadeOut());
-
-		} // while
-
-	} // PlayTracks()
 
 
 	/*=========================== FadeOut ===================================================*/

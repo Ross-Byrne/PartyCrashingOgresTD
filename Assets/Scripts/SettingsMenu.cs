@@ -12,6 +12,7 @@ public class SettingsMenu : MonoBehaviour {
 	public Button quitToMenuButton;
 	public Button quitApplicationButton;
 	public Button backButton;
+	private GameObject gameManager;
 
 
 	/*=========================== Methods ===================================================*/
@@ -20,27 +21,19 @@ public class SettingsMenu : MonoBehaviour {
 
 	void Awake(){
 
+		// get referenece to gameManager
+		gameManager = GameObject.FindGameObjectWithTag("GameManager");
+
 		// add onclick methods to the buttons
 
-		quitToMenuButton.onClick.AddListener (() => QuitToMenuButtonClick());
+		quitToMenuButton.onClick.AddListener (() => gameManager.GetComponent<GameManager>().BackToStartMenu());
 		quitApplicationButton.onClick.AddListener (() => QuitAppButtonClick());
 		backButton.onClick.AddListener (() => BackButtonClick());
 
+		// 
+
 	} // Awake()
-
-
-	/*=========================== QuitToMenuButtonClick() ===================================================*/
-
-	public void QuitToMenuButtonClick(){
-
-		// un pause game
-		Time.timeScale = 1f;
-
-		// move back to the startmenu
-		SceneManager.LoadScene("StartMenu");
-
-	} // QuitToMenuButtonClick()
-
+		
 
 	/*=========================== QuitAppButtonClick() ===================================================*/
 

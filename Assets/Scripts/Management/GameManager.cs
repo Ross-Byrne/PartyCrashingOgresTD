@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
 	private Button settingsButton;
 
 	// GameObjects
+	public GameObject soundManager;
 	public GameObject pathLayout;
 	public Image castleHealthBar;
 	public GameObject settingsMenu;
@@ -46,6 +47,15 @@ public class GameManager : MonoBehaviour {
 	/*=========================== Awake() ===================================================*/
 
 	void Awake(){
+
+		// get a reference to the soundManager
+		soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+
+		// flag scene as main
+		soundManager.GetComponent<SoundManager>().isMainScene = true;
+
+		// tell the sound manager to transition tracks to start playing main game music
+		soundManager.GetComponent<SoundManager>().TransitionTracks();
 
 		// get references to UI
 
@@ -88,6 +98,8 @@ public class GameManager : MonoBehaviour {
 
 		// start game
 		GameHasStarted = true;
+
+		// change to new sound clip
 
 	} // Start()
 
@@ -296,15 +308,24 @@ public class GameManager : MonoBehaviour {
 	} // SettingsButtonClick()
 
 
-	/*=========================== QuitGame() ===================================================*/
+	/*=========================== BackToStartMenu() ===================================================*/
 
 	// quits the game and returns to the startMenu
-	void QuitGame(){
+	public void BackToStartMenu(){
+
+		// un pause game
+		Time.timeScale = 1f;
+
+		// flag scene as startMenu
+		soundManager.GetComponent<SoundManager>().isMainScene = false;
+
+		// tell the sound manager to transition tracks to start playing StartMenu music
+		soundManager.GetComponent<SoundManager>().TransitionTracks();
 
 		// go back to the Start Menu
 		SceneManager.LoadScene("StartMenu");
 
-	} // QuitGame()
+	} // BackToStartMenu()
 
 
 	/*=========================== ShareMessageToTwitter() ===================================================*/
