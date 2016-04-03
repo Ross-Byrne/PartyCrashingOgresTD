@@ -12,17 +12,17 @@ public class SoundManager : MonoBehaviour {
 
 	public static SoundManager soundManager;
 
-	AudioSource source;
+	private AudioSource source;
 	public AudioClip[] startMenuTracks;		// change to private
 	public AudioClip[] mainGameTracks;		// change to private
 
+	public bool isMainScene = false;
 	private int currentPlayingClip;
 	private float currentPlayingLength;
-	public bool isMainScene = false;
 	private bool isPlayingMusic = true;
 	private float curTime;
 	private float timeSinceClipStarted;
-	private float sourceVol = 0.4f;
+	private float sourceVol = 0.3f;
 	private bool transitioningTracks = false;
 
 
@@ -80,15 +80,34 @@ public class SoundManager : MonoBehaviour {
 		//Debug.Log ("curTime - timeSinceClipStarted: " + (curTime - timeSinceClipStarted));
 
 		// check of the tracks need to the transitioned
-		if (curTime - timeSinceClipStarted >= currentPlayingLength - 2f && transitioningTracks == false) {
+		if (curTime - timeSinceClipStarted >= currentPlayingLength - 0.4f && transitioningTracks == false) {
 
 			// transition to next track
 			TransitionTracks();
 
 		} // if
-
-
+			
 	} // Update()
+
+
+	/*=========================== PauseMusic() ===================================================*/
+
+	// takes a boolean, decides to pause or un pause music
+	public void PauseMusic(bool pause){
+
+		if (pause == true) { // pause music
+
+			// pause music
+			source.Pause();
+
+		} else { // unpause music
+
+			// unpause music
+			source.UnPause();
+
+		} // if
+
+	} // PauseMusic()
 
 
 	/*=========================== TransitionTracks() ===================================================*/

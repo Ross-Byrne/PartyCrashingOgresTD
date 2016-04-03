@@ -30,8 +30,6 @@ public class SettingsMenu : MonoBehaviour {
 		quitApplicationButton.onClick.AddListener (() => QuitAppButtonClick());
 		backButton.onClick.AddListener (() => BackButtonClick());
 
-		// 
-
 	} // Awake()
 		
 
@@ -40,7 +38,7 @@ public class SettingsMenu : MonoBehaviour {
 	public void QuitAppButtonClick(){
 
 		// un pause game
-		Time.timeScale = 1f;
+		gameManager.GetComponent<GameManager>().PauseGame(false);
 
 		// exit the application
 		Application.Quit();
@@ -53,7 +51,7 @@ public class SettingsMenu : MonoBehaviour {
 	public void BackButtonClick(){
 
 		// un pause game
-		Time.timeScale = 1f;
+		gameManager.GetComponent<GameManager>().PauseGame(false);
 
 		// deactivate settings menu
 		gameObject.SetActive(false);

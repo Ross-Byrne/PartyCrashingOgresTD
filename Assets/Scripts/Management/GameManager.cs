@@ -297,7 +297,7 @@ public class GameManager : MonoBehaviour {
 	public void SettingsButtonClick(){
 
 		// pause the game
-		Time.timeScale = 0f;
+		PauseGame(true);
 
 		// open settings menu
 		settingsMenu.SetActive(true);
@@ -314,7 +314,7 @@ public class GameManager : MonoBehaviour {
 	public void BackToStartMenu(){
 
 		// un pause game
-		Time.timeScale = 1f;
+		PauseGame(false);
 
 		// flag scene as startMenu
 		soundManager.GetComponent<SoundManager>().isMainScene = false;
@@ -326,6 +326,32 @@ public class GameManager : MonoBehaviour {
 		SceneManager.LoadScene("StartMenu");
 
 	} // BackToStartMenu()
+
+
+	/*=========================== PauseGame() ===================================================*/
+
+	// takes a boolean that decides if the game should be paused or not
+	public void PauseGame(bool pause){
+
+		if (pause == true) { // pause game
+
+			// pause game
+			Time.timeScale = 0f;
+
+			// start playing music again
+			soundManager.GetComponent<SoundManager>().PauseMusic(pause);
+
+		} else {	// unpause game
+
+			// un pause game
+			Time.timeScale = 1f;
+
+			// start playing music again
+			soundManager.GetComponent<SoundManager>().PauseMusic(pause);
+
+		} // if
+
+	} // PauseGame()
 
 
 	/*=========================== ShareMessageToTwitter() ===================================================*/
