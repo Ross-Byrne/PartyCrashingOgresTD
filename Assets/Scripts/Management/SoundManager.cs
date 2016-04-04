@@ -19,7 +19,6 @@ public class SoundManager : MonoBehaviour {
 	public bool isMainScene = false;
 	private int currentPlayingClip;
 	private float currentPlayingLength;
-	private bool isPlayingMusic = true;
 	private float curTime;
 	private float timeSinceClipStarted;
 	private float sourceVol = 0.3f;
@@ -140,7 +139,7 @@ public class SoundManager : MonoBehaviour {
 		// play it
 		source.Play ();
 
-		Debug.Log ("Now Playing: " + source.clip.name + "Length = " + currentPlayingLength);
+		Debug.Log ("Now Playing: " + source.clip.name);
 
 		// save the current time
 		timeSinceClipStarted = Time.time;
@@ -159,7 +158,7 @@ public class SoundManager : MonoBehaviour {
 	// fades out from the current track playing
 	IEnumerator FadeOut(){
 		
-		Debug.Log ("Starting Fade out");
+		//Debug.Log ("Starting Fade out");
 
 		// volume is equal to default source volume
 		float vol = sourceVol;
@@ -178,7 +177,7 @@ public class SoundManager : MonoBehaviour {
 
 		} // while
 
-		Debug.Log ("Finished Fade out");
+		//Debug.Log ("Finished Fade out");
 
 	} // FadeOut()
 
@@ -188,7 +187,7 @@ public class SoundManager : MonoBehaviour {
 	// fades out from the current track playing
 	IEnumerator FadeIn(){
 
-		Debug.Log ("Starting Fade In");
+		//Debug.Log ("Starting Fade In");
 
 		// volume is off by default
 		float vol = 0f;
@@ -207,7 +206,7 @@ public class SoundManager : MonoBehaviour {
 
 		} // while
 
-		Debug.Log ("Finished Fade In");
+		//Debug.Log ("Finished Fade In");
 
 	} // FadeIn()
 

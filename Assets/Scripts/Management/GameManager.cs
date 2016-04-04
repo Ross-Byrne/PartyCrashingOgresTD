@@ -299,8 +299,6 @@ public class GameManager : MonoBehaviour {
 	// handles what happens when the game is over
 	public void GameOver(){
 
-		int count = 0;
-
 		// clear game prompt text
 		gamePromptPanel.GetComponent<GamePromptPanel>().promptText.text = "";
 
