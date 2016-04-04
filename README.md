@@ -14,9 +14,8 @@ The game can be found on the Windows Store at this [Link](https://www.microsoft.
 
 In Party Crashing Ogres Tower Defence, the ogres found out about your Castle Party and are coming to crash it!
 
-The the game saves high scores to a leader board, and once a game is over, you can share your score to Twitter.
-
 All graphical assets featured in the game were created by myself, unless stated otherwise (see references).
+The the game saves high scores to a leader board, and once a game is over, you can share your score to Twitter.
 
 There are 5 different Enemy types (All with their party hats!).
 There are 5 different Defence Towers.
